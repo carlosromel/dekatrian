@@ -11,7 +11,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
-                    <div class="alert alert-info text-center" role="alert">
+                    <div class="alert alert-info text-center" role="alert" style="padding: 0px;">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
@@ -21,18 +21,18 @@
                                 </tr>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col" class="text-center">Seg</th>
-                                    <th scope="col" class="text-center">Ter</th>
-                                    <th scope="col" class="text-center">Qua</th>
-                                    <th scope="col" class="text-center">Qui</th>
-                                    <th scope="col" class="text-center">Sex</th>
-                                    <th scope="col" class="text-center">Sáb</th>
-                                    <th scope="col" class="text-center">Dom</th>
+                                    <th scope="col" class="text-center">S</th>
+                                    <th scope="col" class="text-center">T</th>
+                                    <th scope="col" class="text-center">Q</th>
+                                    <th scope="col" class="text-center">Q</th>
+                                    <th scope="col" class="text-center">S</th>
+                                    <th scope="col" class="text-center">S</th>
+                                    <th scope="col" class="text-center">D</th>
                                 </tr>
                             </thead>
                             <tbody class="text-center">
                                 <tr>
-                                    <th scope="row"><div th:text="${semanaInicialDekatrian}"/></th>
+                                    <th scope="row" th:text="${semanaInicialDekatrian}"/>
                                     <td>1</td>
                                     <td>2</td>
                                     <td>3</td>
@@ -42,7 +42,7 @@
                                     <td>7</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row"><div th:text="${semanaInicialDekatrian + 1}"/></th>
+                                    <th scope="row" th:text="${semanaInicialDekatrian + 1}"/>
                                     <td>8</td>
                                     <td>9</td>
                                     <td>10</td>
@@ -52,7 +52,7 @@
                                     <td>14</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row"><div th:text="${semanaInicialDekatrian + 2}"/></th>
+                                    <th scope="row" th:text="${semanaInicialDekatrian + 2}"/>
                                     <td>15</td>
                                     <td>16</td>
                                     <td>17</td>
@@ -62,7 +62,7 @@
                                     <td>21</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row"><div th:text="${semanaInicialDekatrian + 3}"/></th>
+                                    <th scope="row" th:text="${semanaInicialDekatrian + 3}"/>
                                     <td>22</td>
                                     <td>23</td>
                                     <td>24</td>
@@ -75,9 +75,9 @@
                         </table>
 </div>
 </div>
-<div class="col-md-4">
-    <div class="alert alert-info text-center" role="alert">
-        <table class="table table-striped">
+                <div class="col-md-4">
+                    <div class="alert alert-info text-center" role="alert" style="padding: 0px;">
+                        <table class="table table-striped">
             <thead>
                 <tr>
                     <th class="text-center"><a th:href="@{/cal/{dekatrian}/{gregorian}(dekatrian=${dekatrian},gregorian=${anteriorGregorian})}"> &lt;&lt; </a></th>
@@ -86,13 +86,13 @@
                 </tr>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col" class="text-center">Dom</th>
-                    <th scope="col" class="text-center">Seg</th>
-                    <th scope="col" class="text-center">Ter</th>
-                    <th scope="col" class="text-center">Qua</th>
-                    <th scope="col" class="text-center">Qui</th>
-                    <th scope="col" class="text-center">Sex</th>
-                    <th scope="col" class="text-center">Sáb</th>
+                    <th scope="col" class="text-center">D</th>
+                    <th scope="col" class="text-center">S</th>
+                    <th scope="col" class="text-center">T</th>
+                    <th scope="col" class="text-center">Q</th>
+                    <th scope="col" class="text-center">Q</th>
+                    <th scope="col" class="text-center">S</th>
+                    <th scope="col" class="text-center">S</th>
                 </tr>
             </thead>
             <tbody class="text-center">
@@ -105,14 +105,14 @@
                     <td th:text="${semana.quinta}" />
                     <td th:text="${semana.sexta}" />
                     <td th:text="${semana.sabado}" />
-                </tr>
+                </tr> 
             </tbody>
         </table>
     </div>
 </div>
-<div class="col-md-4">
-    <div class="row">
-        <div class="alert alert-info" role="alert">
+                <div class="col-md-4">
+                    <div class="row">
+        <div class="alert alert-info" role="alert" th:if="${gregorianHuman} != null">
             <p> Gregorian: <span th:text="${gregorianHuman}"/></p>
             <p> Dekatrian: <span th:text="${dekatrianHuman}"/></p>
         </div>
