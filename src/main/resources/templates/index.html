@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'index')}">
+    <body>
+        <div class="jumbotron">
+            <div class="container">
+                <h1><i>Calendário Dekatrian</i></h1>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="alert alert-info text-center" role="alert">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="text-center"><a th:href="@{/cal/{dekatrian}/{gregorian}(dekatrian=${anteriorDekatrian},gregorian=${gregorian})}"> &lt;&lt; </a></th>
+                                    <th class="text-center" colspan="6"><p th:text=${refDekatrian}/></th>
+                                    <th class="text-center"><a th:href="@{/cal/{dekatrian}/{gregorian}(dekatrian=${proximoDekatrian},gregorian=${gregorian})}"> &gt;&gt; </a></th>
+                                </tr>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col" class="text-center">Seg</th>
+                                    <th scope="col" class="text-center">Ter</th>
+                                    <th scope="col" class="text-center">Qua</th>
+                                    <th scope="col" class="text-center">Qui</th>
+                                    <th scope="col" class="text-center">Sex</th>
+                                    <th scope="col" class="text-center">Sáb</th>
+                                    <th scope="col" class="text-center">Dom</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-center">
+                                <tr>
+                                    <th scope="row"><div th:text="${semanaInicialDekatrian}"/></th>
+                                    <td>1</td>
+                                    <td>2</td>
+                                    <td>3</td>
+                                    <td>4</td>
+                                    <td>5</td>
+                                    <td>6</td>
+                                    <td>7</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><div th:text="${semanaInicialDekatrian + 1}"/></th>
+                                    <td>8</td>
+                                    <td>9</td>
+                                    <td>10</td>
+                                    <td>11</td>
+                                    <td>12</td>
+                                    <td>13</td>
+                                    <td>14</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><div th:text="${semanaInicialDekatrian + 2}"/></th>
+                                    <td>15</td>
+                                    <td>16</td>
+                                    <td>17</td>
+                                    <td>18</td>
+                                    <td>19</td>
+                                    <td>20</td>
+                                    <td>21</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"><div th:text="${semanaInicialDekatrian + 3}"/></th>
+                                    <td>22</td>
+                                    <td>23</td>
+                                    <td>24</td>
+                                    <td>25</td>
+                                    <td>26</td>
+                                    <td>27</td>
+                                    <td>28</td>
+                                </tr>
+                            </tbody>
+                        </table>
+</div>
+</div>
+<div class="col-md-4">
+    <div class="alert alert-info text-center" role="alert">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="text-center"><a th:href="@{/cal/{dekatrian}/{gregorian}(dekatrian=${dekatrian},gregorian=${anteriorGregorian})}"> &lt;&lt; </a></th>
+                    <th class="text-center" colspan="6"><p th:text=${refGregorian}/></th>
+                    <th class="text-center"><a th:href="@{/cal/{dekatrian}/{gregorian}(dekatrian=${dekatrian},gregorian=${proximoGregorian})}"> &gt;&gt; </a></th>
+                </tr>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col" class="text-center">Dom</th>
+                    <th scope="col" class="text-center">Seg</th>
+                    <th scope="col" class="text-center">Ter</th>
+                    <th scope="col" class="text-center">Qua</th>
+                    <th scope="col" class="text-center">Qui</th>
+                    <th scope="col" class="text-center">Sex</th>
+                    <th scope="col" class="text-center">Sáb</th>
+                </tr>
+            </thead>
+            <tbody class="text-center">
+                <tr th:each="semana : ${semanas}">
+                    <th scope="row" th:text="${semana.numeroSemana}" />
+                    <td th:text="${semana.domingo}" />
+                    <td th:text="${semana.segunda}" />
+                    <td th:text="${semana.terca}" />
+                    <td th:text="${semana.quarta}" />
+                    <td th:text="${semana.quinta}" />
+                    <td th:text="${semana.sexta}" />
+                    <td th:text="${semana.sabado}" />
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="col-md-4">
+    <div class="row">
+        <div class="alert alert-info" role="alert">
+            <p> Gregorian: <span th:text="${gregorianHuman}"/></p>
+            <p> Dekatrian: <span th:text="${dekatrianHuman}"/></p>
+        </div>
+        <div class="alert alert-info" role="alert">
+            <p><b>Disponível também via REST</b></p>
+            <p>Exemplo:</p>
+            <ul>
+                <li><a href="/v1/dekatrian/1972-12-22">/v1/dekatrian/1972-12-22</a></li>
+                <li><a href="/v1/gregorian/1972-01-29">/v1/gregorian/1972-01-29</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</body>
+</html>
