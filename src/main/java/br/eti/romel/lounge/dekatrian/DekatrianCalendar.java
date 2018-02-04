@@ -25,9 +25,9 @@ import java.util.*;
  */
 public final class DekatrianCalendar {
 
-    private int year;
-    private int month;
-    private int day;
+    private int year = -1;
+    private int month = -1;
+    private int day = -1;
 
     /**
      * Cria uma data Dekatrian baseada em sua equivalente Gregorian.
@@ -216,5 +216,10 @@ public final class DekatrianCalendar {
     public int getWeek() {
 
         return toGregorian().get(Calendar.WEEK_OF_YEAR);
+    }
+
+    public boolean isValid() {
+
+        return this.year > 0 && this.month >= 0 && this.day > 0;
     }
 }

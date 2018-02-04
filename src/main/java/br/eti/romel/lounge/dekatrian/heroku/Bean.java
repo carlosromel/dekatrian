@@ -52,21 +52,23 @@ public final class Bean {
         this(dekatrian.toGregorian());
     }
 
-    public void setGregorian(Calendar gregorian) {
+    public boolean setGregorian(Calendar gregorian) {
 
-        setVariables(gregorian, new DekatrianCalendar(gregorian));
+        return setVariables(gregorian, new DekatrianCalendar(gregorian));
     }
 
-    public void setDekatrian(DekatrianCalendar dekatrian) {
+    public boolean setDekatrian(DekatrianCalendar dekatrian) {
 
-        setVariables(dekatrian.toGregorian(), dekatrian);
+        return setVariables(dekatrian.toGregorian(), dekatrian);
     }
 
-    private void setVariables(Calendar gregorian, DekatrianCalendar dekatrian) {
+    private boolean setVariables(Calendar gregorian, DekatrianCalendar dekatrian) {
 
         this.gregorian = gregorian;
         this.dekatrian = dekatrian;
         this.gregorianFormat = SDF.format(this.gregorian.getTime());
         this.dekatrianFormat = this.dekatrian.toString();
+
+        return this.dekatrian.isValid();
     }
 }

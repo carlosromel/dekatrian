@@ -116,9 +116,17 @@ public class Main {
                     produces = MediaType.APPLICATION_JSON_VALUE)
     Bean toGregorian(@PathVariable String dekatrian) {
         Bean result = new Bean();
+
         try {
-            result.setDekatrian(new DekatrianCalendar(SDF.parse(dekatrian)));
-        } catch (ParseException ex) {
+            String[] parts = dekatrian.split("-");
+            if (parts.length == 3) {
+                if (!result.setDekatrian(new DekatrianCalendar(Integer.parseInt(parts[0]),
+                                                               Integer.parseInt(parts[1]) - 1,
+                                                               Integer.parseInt(parts[2])))) {
+                    result.setMensagem(String.format("%s não é uma data válida.", dekatrian));
+                }
+            }
+        } catch (NumberFormatException ex) {
             result.setMensagem(String.format("%s não é uma data válida (%s).", dekatrian, ex.getLocalizedMessage()));
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
