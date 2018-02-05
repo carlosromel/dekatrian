@@ -29,15 +29,20 @@ import lombok.*;
 @NoArgsConstructor
 public final class Bean {
 
-    private static final SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");
+    private static final SimpleDateFormat SDF_SHORT = new SimpleDateFormat("yyyy-MM-dd");
+    private static final SimpleDateFormat SDF_LONG = new SimpleDateFormat("dd MMMM yyyy", new Locale("pt", "BR"));
     @Getter
     private Calendar gregorian;
     @Getter
     private String gregorianFormat;
     @Getter
+    private String gregorianHuman;
+    @Getter
     private DekatrianCalendar dekatrian;
     @Getter
     private String dekatrianFormat;
+    @Getter
+    private String dekatrianHuman;
     @Getter
     @Setter
     private String mensagem;
@@ -63,11 +68,15 @@ public final class Bean {
     }
 
     private boolean setVariables(Calendar gregorian, DekatrianCalendar dekatrian) {
-
         this.gregorian = gregorian;
         this.dekatrian = dekatrian;
-        this.gregorianFormat = SDF.format(this.gregorian.getTime());
+        this.gregorianFormat = SDF_SHORT.format(this.gregorian.getTime());
         this.dekatrianFormat = this.dekatrian.toString();
+        this.dekatrianHuman = String.format("%02d %s %04d",
+                                            dekatrian.getDay(),
+                                            DekatrianEnum.getMonthName(dekatrian.getMonth()),
+                                            dekatrian.getYear());
+        this.gregorianHuman = SDF_LONG.format(gregorian.getTime());
 
         return this.dekatrian.isValid();
     }

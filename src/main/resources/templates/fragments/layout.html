@@ -26,4 +26,45 @@
         <div class="container">
             <div th:replace="${template}"/>
         </div>
+            <script type="text/javascript"  language="JavaScript">
+            function convert(url) {
+                var xhr = new XMLHttpRequest();
+
+                xhr.open('GET', url);
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        dates = JSON.parse(xhr.responseText);
+                        var deka = dates.dekatrianFormat + ', (' + dates.dekatrianHuman + ')';
+                        var greg = dates.gregorianFormat + ', (' + dates.gregorianHuman + ')';
+
+                        document.querySelector('#dekatrianHuman').textContent = deka;
+                        document.querySelector('#gregorianHuman').textContent = greg;
+                    }
+                };
+
+                xhr.send();
+                console.log(url);
+            }
+
+            document.querySelectorAll(".dekatrian").forEach(function (e) {
+                e.addEventListener('click', function () {
+                    var ref = document.querySelector('#dekatrian').getAttribute('ref');
+                    var day = '00' + this.textContent;
+                    var date = ref + '-' + day.substring(day.length - 2);
+                    var url = '/v1/gregorian/' + date;
+                    convert(url);
+                });
+            });
+
+            document.querySelectorAll(".gregorian").forEach(function (e) {
+                e.addEventListener('click', function () {
+                    var ref = document.querySelector('#gregorian').getAttribute('ref');
+                    var day = '00' + this.textContent;
+                    var date = ref + '-' + day.substring(day.length - 2);
+                    var url = '/v1/dekatrian/' + date;
+                    convert(url);
+                });
+            });
+
+        </script>
         </body>

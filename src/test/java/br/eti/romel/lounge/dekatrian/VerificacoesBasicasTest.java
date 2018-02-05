@@ -51,9 +51,9 @@ public class VerificacoesBasicasTest {
         DekatrianCalendar data = new DekatrianCalendar(2018, 1, 29);
 
         assertTrue("O calendário Dekatrian possui meses com 28 dias.",
-                   data.getYear() == 0
-                   && data.getMonth() == 0
-                   && data.getDay() == 0);
+                   data.getYear() == -1
+                   && data.getMonth() == -1
+                   && data.getDay() == -1);
     }
 
     @Test
@@ -71,8 +71,8 @@ public class VerificacoesBasicasTest {
         DekatrianCalendar data = new DekatrianCalendar(2018, 14, 1);
 
         assertTrue("O calendário Dekatrian possui treze meses.",
-                   data.getYear() == 0
-                   && data.getMonth() == 0
-                   && data.getDay() == 0);
+                   data.getYear() == -1
+                   && data.getMonth() == -1
+                   && data.getDay() == -1);
     }
 }

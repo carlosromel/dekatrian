@@ -20,12 +20,6 @@ public class Main {
 
     private static final SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");
     private static final String SHORT_REF = "%04d%02d";
-    private static final List<String> ESTADOS = Arrays.asList("Janeiro", "Fevereiro",
-                                                              "Março", "Abril",
-                                                              "Maio", "Junho",
-                                                              "Julho", "Agosto",
-                                                              "Setembro", "Outubro",
-                                                              "Novembro", "Dezembro");
 
     public static void main(String[] args) throws Exception {
         SpringApplication.run(Main.class, args);
@@ -42,6 +36,7 @@ public class Main {
     @RequestMapping("/cal/{refDekatrian}/{refGregorian}")
     String calendar(@PathVariable String refDekatrian, @PathVariable String refGregorian, Model model) {
 
+        System.out.printf("/cal/%s/%s%n", refDekatrian, refGregorian);
         if (refDekatrian.length() == 6) {
             final int yd = Integer.parseInt(refDekatrian.substring(0, 4));
             final int md = Integer.parseInt(refDekatrian.substring(4, 6));
@@ -56,7 +51,7 @@ public class Main {
             final int yearDekatrian = dekatrian.getYear();
             final int yearGregorian = gregorian.get(Calendar.YEAR);
             final String monthDekatrian = DekatrianEnum.getMonthName(dekatrian.getMonth());
-            final String monthGregorian = ESTADOS.get(gregorian.get(Calendar.MONTH));
+            final String monthGregorian = new SimpleDateFormat("MMMM", new Locale("pt", "BR")).format(gregorian.getTime());
             final DekatrianCalendar anteriorDekatrian = dekatrian.previousMonth();
             final DekatrianCalendar proximoDekatrian = dekatrian.nextMonth();
 
@@ -65,6 +60,9 @@ public class Main {
 
             model.addAttribute("dekatrian", refDekatrian);
             model.addAttribute("gregorian", refGregorian);
+
+            model.addAttribute("baseDekatrian", String.format("%04d-%02d", yd, md + 1));
+            model.addAttribute("baseGregorian", String.format("%04d-%02d", yg, mg + 1));
 
             model.addAttribute("refDekatrian", String.format("%s %04d", monthDekatrian, yearDekatrian));
             model.addAttribute("refGregorian", String.format("%s %04d", monthGregorian, yearGregorian));
@@ -78,7 +76,8 @@ public class Main {
             model.addAttribute("semanaInicialGregorian", gregorian.get(Calendar.WEEK_OF_YEAR));
             model.addAttribute("bean", new Bean(dekatrian));
 
-            model.addAttribute("semanas", obterSemanas(gregorian));
+            model.addAttribute("semanasDekatrianas", getDekatrianWeeks(dekatrian));
+            model.addAttribute("semanasGregorianas", getGregorianWeeks(gregorian));
 
             return "index";
         } else {
@@ -144,24 +143,34 @@ public class Main {
         return String.format(SHORT_REF, date.getYear(), date.getMonth());
     }
 
-    public List<Semana> obterSemanas(Calendar gregorian) {
-        List<Semana> semanas = new ArrayList<>();
-        int mesAtual = gregorian.get(Calendar.MONTH);
+    public List<Semana> getDekatrianWeeks(DekatrianCalendar dekatrian) {
+        int w = dekatrian.getWeek();
+        int d = 1;
+
+        return Arrays.asList(new Semana(w++, d++, d++, d++, d++, d++, d++, d++),
+                             new Semana(w++, d++, d++, d++, d++, d++, d++, d++),
+                             new Semana(w++, d++, d++, d++, d++, d++, d++, d++),
+                             new Semana(w++, d++, d++, d++, d++, d++, d++, d++));
+    }
+
+    public List<Semana> getGregorianWeeks(Calendar gregorian) {
+        List<Semana> weeks = new ArrayList<>();
+        int actualMonth = gregorian.get(Calendar.MONTH);
         gregorian.set(Calendar.DAY_OF_MONTH, 1);
 
-        while (gregorian.get(Calendar.MONTH) == mesAtual) {
-            Integer numeroSemana = gregorian.get(Calendar.WEEK_OF_YEAR);
-            List<Integer> dias = Arrays.asList(null, null, null, null, null, null, null);
+        while (gregorian.get(Calendar.MONTH) == actualMonth) {
+            Integer weekNumber = gregorian.get(Calendar.WEEK_OF_YEAR);
+            List<Integer> days = Arrays.asList(null, null, null, null, null, null, null);
 
-            while (gregorian.get(Calendar.MONTH) == mesAtual
-                   && gregorian.get(Calendar.WEEK_OF_YEAR) == numeroSemana) {
-                dias.set(gregorian.get(Calendar.DAY_OF_WEEK) - 1, gregorian.get(Calendar.DAY_OF_MONTH));
+            while (gregorian.get(Calendar.MONTH) == actualMonth
+                   && gregorian.get(Calendar.WEEK_OF_YEAR) == weekNumber) {
+                days.set(gregorian.get(Calendar.DAY_OF_WEEK) - 1, gregorian.get(Calendar.DAY_OF_MONTH));
                 gregorian.add(Calendar.DAY_OF_MONTH, 1);
             }
 
-            semanas.add(new Semana(numeroSemana, dias));
+            weeks.add(new Semana(weekNumber, days));
         }
 
-        return semanas;
+        return weeks;
     }
 }
