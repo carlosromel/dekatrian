@@ -40,7 +40,7 @@ public class InspecaoVisual {
                                        dekatrian.getMonth(),
                                        dekatrian.getDay());
 
-            System.out.printf("\t%s-%s%s", grg, dkt, (++dias % agrupador == 0 ? "\n" : ""));
+            System.out.printf("\t(%s, %s)%s", grg, dkt, (++dias % agrupador == 0 ? "\n" : ""));
 
             dataInicial.add(Calendar.DAY_OF_MONTH, 1);
 

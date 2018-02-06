@@ -23,22 +23,24 @@ package br.eti.romel.lounge.dekatrian;
  */
 public enum DekatrianEnum {
 
-    Auroran(0),
-    Borean(1),
-    Coronian(2),
-    Driadan(3),
-    Electran(4),
-    Faian(5),
-    Gaian(6),
-    Hermetian(7),
-    Irisian(8),
-    Kaosian(9),
-    Lunan(10),
-    Maian(11),
-    Nixian(12);
+    Anachronian(0),
+    Auroran(1),
+    Borean(2),
+    Coronian(3),
+    Driadan(4),
+    Electran(5),
+    Faian(6),
+    Gaian(7),
+    Hermetian(8),
+    Irisian(9),
+    Kaosian(10),
+    Lunan(11),
+    Maian(12),
+    Nixian(13);
 
     private final int id;
     private static final String[] MONTH_NAME = {
+        "Anachronian",
         "Auroran",
         "Borean",
         "Coronian",

@@ -1,5 +1,5 @@
 /**
- * Copyright 2017 Carlos Romel Pereira da Silva, carlos.romel@gmail.com
+ * Copyright 2018 Carlos Romel Pereira da Silva, carlos.romel@gmail.com
  */
 package br.eti.romel.lounge.dekatrian.heroku;
 
@@ -33,10 +33,15 @@ public class Main {
         return calendar(ref(dekatrian), ref(gregorian), model);
     }
 
+    @PostMapping("/")
+    public String converter(@ModelAttribute Bean bean) {
+
+        return "index";
+    }
+
     @RequestMapping("/cal/{refDekatrian}/{refGregorian}")
     String calendar(@PathVariable String refDekatrian, @PathVariable String refGregorian, Model model) {
 
-        System.out.printf("/cal/%s/%s%n", refDekatrian, refGregorian);
         if (refDekatrian.length() == 6) {
             final int yd = Integer.parseInt(refDekatrian.substring(0, 4));
             final int md = Integer.parseInt(refDekatrian.substring(4, 6));
@@ -50,7 +55,7 @@ public class Main {
 
             final int yearDekatrian = dekatrian.getYear();
             final int yearGregorian = gregorian.get(Calendar.YEAR);
-            final String monthDekatrian = DekatrianEnum.getMonthName(dekatrian.getMonth());
+            final String monthDekatrian = DekatrianEnum.getMonthName(dekatrian.getMonth() + 1);
             final String monthGregorian = new SimpleDateFormat("MMMM", new Locale("pt", "BR")).format(gregorian.getTime());
             final DekatrianCalendar anteriorDekatrian = dekatrian.previousMonth();
             final DekatrianCalendar proximoDekatrian = dekatrian.nextMonth();
@@ -85,18 +90,13 @@ public class Main {
         }
     }
 
-    @PostMapping("/")
-    public String converter(@ModelAttribute Bean bean) {
-
-        return "index";
-    }
-
     @ResponseBody()
     @RequestMapping(path = "/v1/dekatrian/{gregorian}",
                     method = RequestMethod.GET,
                     produces = MediaType.APPLICATION_JSON_VALUE)
     Bean toDekatrean(@PathVariable String gregorian) {
         Bean result = new Bean();
+
         try {
             Calendar greg = new GregorianCalendar();
             greg.setTime(SDF.parse(gregorian));
@@ -119,9 +119,18 @@ public class Main {
         try {
             String[] parts = dekatrian.split("-");
             if (parts.length == 3) {
-                if (!result.setDekatrian(new DekatrianCalendar(Integer.parseInt(parts[0]),
-                                                               Integer.parseInt(parts[1]) - 1,
-                                                               Integer.parseInt(parts[2])))) {
+
+                int year = Integer.parseInt(parts[0]);
+                int month = Integer.parseInt(parts[1]);
+                int day = Integer.parseInt(parts[2]);
+
+                if (month == 1
+                    && (day == 1
+                        || (new GregorianCalendar().isLeapYear(year)
+                            && day == 2))) {
+                    --month;
+                }
+                if (!result.setDekatrian(new DekatrianCalendar(year, month, day))) {
                     result.setMensagem(String.format("%s não é uma data válida.", dekatrian));
                 }
             }

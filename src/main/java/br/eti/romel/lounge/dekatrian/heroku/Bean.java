@@ -72,10 +72,7 @@ public final class Bean {
         this.dekatrian = dekatrian;
         this.gregorianFormat = SDF_SHORT.format(this.gregorian.getTime());
         this.dekatrianFormat = this.dekatrian.toString();
-        this.dekatrianHuman = String.format("%02d %s %04d",
-                                            dekatrian.getDay(),
-                                            DekatrianEnum.getMonthName(dekatrian.getMonth()),
-                                            dekatrian.getYear());
+        this.dekatrianHuman = this.dekatrian.toHuman();
         this.gregorianHuman = SDF_LONG.format(gregorian.getTime());
 
         return this.dekatrian.isValid();

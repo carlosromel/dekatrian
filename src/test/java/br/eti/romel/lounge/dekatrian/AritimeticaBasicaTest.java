@@ -17,7 +17,6 @@
  */
 package br.eti.romel.lounge.dekatrian;
 
-import java.text.*;
 import static org.junit.Assert.assertEquals;
 import org.junit.*;
 
@@ -26,12 +25,11 @@ import org.junit.*;
  * @author Carlos Romel Pereira da Silva <carlos.romel@gmail.com>
  */
 public class AritimeticaBasicaTest {
-    private final static SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");
 
     @Test
     public void mesAnterior() {
         DekatrianCalendar atual = new DekatrianCalendar(2018, 0, 1);
-        DekatrianCalendar anterior = new DekatrianCalendar(2017, 12, 1);
+        DekatrianCalendar anterior = new DekatrianCalendar(2017, 14, 1);
 
         assertEquals("Próximo mês inválido.",
                      anterior.toString(),

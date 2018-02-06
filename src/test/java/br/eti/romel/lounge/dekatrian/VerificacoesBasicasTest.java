@@ -17,6 +17,9 @@
  */
 package br.eti.romel.lounge.dekatrian;
 
+import java.text.*;
+import java.util.*;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.*;
 
@@ -25,6 +28,8 @@ import org.junit.*;
  * @author Carlos Romel Pereira da Silva <carlos.romel@gmail.com>
  */
 public class VerificacoesBasicasTest {
+
+    final SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");
 
     @Test
     public void dataValida() {
@@ -58,21 +63,61 @@ public class VerificacoesBasicasTest {
 
     @Test
     public void dataValidaLimiteMeses() {
-        DekatrianCalendar data = new DekatrianCalendar(2018, 12, 1);
+        DekatrianCalendar data = new DekatrianCalendar(2018, 14, 1);
 
         assertTrue("O calendário Dekatrian possui treze meses.",
                    data.getYear() == 2018
-                   && data.getMonth() == 12
+                   && data.getMonth() == 14 // treze meses regulares, sendo o primeiro (0) para casos especiais.
                    && data.getDay() == 1);
     }
 
     @Test
     public void dataInvalidaLimiteMeses() {
-        DekatrianCalendar data = new DekatrianCalendar(2018, 14, 1);
+        DekatrianCalendar data = new DekatrianCalendar(2018, 15, 1);
 
         assertTrue("O calendário Dekatrian possui treze meses.",
                    data.getYear() == -1
                    && data.getMonth() == -1
                    && data.getDay() == -1);
+    }
+
+    @Test
+    public void anachronianDayTest() {
+        // 2018-01-01 Anachronian day
+        final Calendar gregorian = new GregorianCalendar(2018, 0, 1);
+        final DekatrianCalendar dekatrian = new DekatrianCalendar(gregorian);
+
+        assertEquals(SDF.format(gregorian.getTime()),
+                     SDF.format(dekatrian.toGregorian().getTime()));
+    }
+
+    @Test
+    public void falseSinchronianDayTest() {
+        // 2018-01-02 Normal day
+        final Calendar gregorian = new GregorianCalendar(2018, 0, 2);
+        final DekatrianCalendar dekatrian = new DekatrianCalendar(gregorian);
+
+        assertEquals(SDF.format(gregorian.getTime()),
+                     SDF.format(dekatrian.toGregorian().getTime()));
+    }
+
+    @Test
+    public void sinchronianDayTest() {
+        // 2016-01-02 Sinchronian day
+        final Calendar gregorian = new GregorianCalendar(2016, 0, 2);
+        final DekatrianCalendar dekatrian = new DekatrianCalendar(gregorian);
+
+        assertEquals(SDF.format(gregorian.getTime()),
+                     SDF.format(dekatrian.toGregorian().getTime()));
+    }
+
+    @Test
+    public void lastDayTest() {
+        // 2018-12-31
+        final Calendar gregorian = new GregorianCalendar(2018, 11, 31);
+        final DekatrianCalendar dekatrian = new DekatrianCalendar(gregorian);
+
+        assertEquals(SDF.format(gregorian.getTime()),
+                     SDF.format(dekatrian.toGregorian().getTime()));
     }
 }

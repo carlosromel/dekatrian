@@ -33,43 +33,43 @@ import org.junit.runners.Parameterized.Parameters;
 public class DekatrianCalendarTest {
 
     private static final SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");
-    private static final int ANO_REFERENCIA = 2017;
+    private static final int ANO_BISSEXTO = 2016;
+    private static final int ANO_REFERENCIA = 2018;
     private final String mensagem;
     private final DekatrianCalendar informado;
     private final Calendar esperado;
 
     @Parameters
     public static Collection<Object[]> data() {
+
         return Arrays.asList(new Object[][]{
-            {new DekatrianCalendar(ANO_REFERENCIA, 0, 01), new GregorianCalendar(ANO_REFERENCIA, 0, 01), "Dia fora do tempo."},
-            {new DekatrianCalendar(ANO_REFERENCIA, 0, 28), new GregorianCalendar(ANO_REFERENCIA, 0, 28), ""},
-            {new DekatrianCalendar(ANO_REFERENCIA, 1, 01), new GregorianCalendar(ANO_REFERENCIA, 0, 29), ""},
-            {new DekatrianCalendar(ANO_REFERENCIA, 1, 28), new GregorianCalendar(ANO_REFERENCIA, 1, 25), ""},
-            {new DekatrianCalendar(ANO_REFERENCIA, 2, 01), new GregorianCalendar(ANO_REFERENCIA, 1, 26), ""},
-            {new DekatrianCalendar(ANO_REFERENCIA, 2, 28), new GregorianCalendar(ANO_REFERENCIA, 2, 25), ""},
-            {new DekatrianCalendar(ANO_REFERENCIA, 3, 01), new GregorianCalendar(ANO_REFERENCIA, 2, 26), ""},
-            {new DekatrianCalendar(ANO_REFERENCIA, 3, 28), new GregorianCalendar(ANO_REFERENCIA, 3, 22), ""},
-            {new DekatrianCalendar(ANO_REFERENCIA, 4, 01), new GregorianCalendar(ANO_REFERENCIA, 3, 23), ""},
-            {new DekatrianCalendar(ANO_REFERENCIA, 4, 28), new GregorianCalendar(ANO_REFERENCIA, 4, 20), ""},
-            {new DekatrianCalendar(ANO_REFERENCIA, 5, 01), new GregorianCalendar(ANO_REFERENCIA, 4, 21), ""},
-            {new DekatrianCalendar(ANO_REFERENCIA, 5, 28), new GregorianCalendar(ANO_REFERENCIA, 5, 17), ""},
-            {new DekatrianCalendar(ANO_REFERENCIA, 6, 01), new GregorianCalendar(ANO_REFERENCIA, 5, 18), ""},
-            {new DekatrianCalendar(ANO_REFERENCIA, 6, 28), new GregorianCalendar(ANO_REFERENCIA, 6, 15), ""},
-            {new DekatrianCalendar(ANO_REFERENCIA, 7, 01), new GregorianCalendar(ANO_REFERENCIA, 6, 16), ""},
-            {new DekatrianCalendar(ANO_REFERENCIA, 7, 28), new GregorianCalendar(ANO_REFERENCIA, 7, 12), ""},
-            {new DekatrianCalendar(ANO_REFERENCIA, 8, 01), new GregorianCalendar(ANO_REFERENCIA, 7, 13), ""},
-            {new DekatrianCalendar(ANO_REFERENCIA, 8, 28), new GregorianCalendar(ANO_REFERENCIA, 8, 9), ""},
-            {new DekatrianCalendar(ANO_REFERENCIA, 9, 01), new GregorianCalendar(ANO_REFERENCIA, 8, 10), ""},
-            {new DekatrianCalendar(ANO_REFERENCIA, 9, 28), new GregorianCalendar(ANO_REFERENCIA, 9, 7), ""},
-            {new DekatrianCalendar(ANO_REFERENCIA, 10, 01), new GregorianCalendar(ANO_REFERENCIA, 9, 8), ""},
-            {new DekatrianCalendar(ANO_REFERENCIA, 10, 28), new GregorianCalendar(ANO_REFERENCIA, 10, 4), ""},
-            {new DekatrianCalendar(ANO_REFERENCIA, 11, 01), new GregorianCalendar(ANO_REFERENCIA, 10, 5), ""},
-            {new DekatrianCalendar(ANO_REFERENCIA, 11, 28), new GregorianCalendar(ANO_REFERENCIA, 11, 2), ""},
-            {new DekatrianCalendar(ANO_REFERENCIA, 12, 01), new GregorianCalendar(ANO_REFERENCIA, 11, 3), ""},
-            {new DekatrianCalendar(ANO_REFERENCIA, 12, 28), new GregorianCalendar(ANO_REFERENCIA, 11, 30), ""}
-        /*,
-            {new DekatrianCalendar(ANO_REFERENCIA + 1, 0, 1), new GregorianCalendar(ANO_REFERENCIA, 11, 31), "Dia fora do tempo, cíclico."}
-         */
+            {new DekatrianCalendar(ANO_REFERENCIA, 0, 1), new GregorianCalendar(ANO_REFERENCIA, 0, 1), "Anachronian (dia fora do tempo)."},
+            {new DekatrianCalendar(ANO_BISSEXTO, 0, 1), new GregorianCalendar(ANO_BISSEXTO, 0, 1), "Anachronian (dia fora do tempo)."},
+            {new DekatrianCalendar(ANO_BISSEXTO, 0, 2), new GregorianCalendar(ANO_BISSEXTO, 0, 2), "Sinchronian (para anos bissextos)."},
+            {new DekatrianCalendar(ANO_REFERENCIA, 0, 2), new GregorianCalendar(ANO_REFERENCIA, 0, 2), "Dia normal (Sinchronian day para anos não bissextos."},
+            {new DekatrianCalendar(ANO_REFERENCIA, 2, 2), new GregorianCalendar(ANO_REFERENCIA, 0, 31), ""},
+            {new DekatrianCalendar(ANO_REFERENCIA, 2, 3), new GregorianCalendar(ANO_REFERENCIA, 1, 1), ""},
+            {new DekatrianCalendar(ANO_REFERENCIA, 3, 2), new GregorianCalendar(ANO_REFERENCIA, 1, 28), ""},
+            {new DekatrianCalendar(ANO_REFERENCIA, 3, 3), new GregorianCalendar(ANO_REFERENCIA, 2, 1), ""},
+            {new DekatrianCalendar(ANO_REFERENCIA, 4, 5), new GregorianCalendar(ANO_REFERENCIA, 2, 31), ""},
+            {new DekatrianCalendar(ANO_REFERENCIA, 4, 6), new GregorianCalendar(ANO_REFERENCIA, 3, 1), ""},
+            {new DekatrianCalendar(ANO_REFERENCIA, 5, 7), new GregorianCalendar(ANO_REFERENCIA, 3, 30), ""},
+            {new DekatrianCalendar(ANO_REFERENCIA, 5, 8), new GregorianCalendar(ANO_REFERENCIA, 4, 1), ""},
+            {new DekatrianCalendar(ANO_REFERENCIA, 6, 10), new GregorianCalendar(ANO_REFERENCIA, 4, 31), ""},
+            {new DekatrianCalendar(ANO_REFERENCIA, 6, 11), new GregorianCalendar(ANO_REFERENCIA, 5, 1), ""},
+            {new DekatrianCalendar(ANO_REFERENCIA, 7, 12), new GregorianCalendar(ANO_REFERENCIA, 5, 30), ""},
+            {new DekatrianCalendar(ANO_REFERENCIA, 7, 13), new GregorianCalendar(ANO_REFERENCIA, 6, 1), ""},
+            {new DekatrianCalendar(ANO_REFERENCIA, 8, 15), new GregorianCalendar(ANO_REFERENCIA, 6, 31), ""},
+            {new DekatrianCalendar(ANO_REFERENCIA, 8, 16), new GregorianCalendar(ANO_REFERENCIA, 7, 1), ""},
+            {new DekatrianCalendar(ANO_REFERENCIA, 9, 18), new GregorianCalendar(ANO_REFERENCIA, 7, 31), ""},
+            {new DekatrianCalendar(ANO_REFERENCIA, 9, 19), new GregorianCalendar(ANO_REFERENCIA, 8, 1), ""},
+            {new DekatrianCalendar(ANO_REFERENCIA, 10, 20), new GregorianCalendar(ANO_REFERENCIA, 8, 30), ""},
+            {new DekatrianCalendar(ANO_REFERENCIA, 10, 21), new GregorianCalendar(ANO_REFERENCIA, 9, 1), ""},
+            {new DekatrianCalendar(ANO_REFERENCIA, 11, 23), new GregorianCalendar(ANO_REFERENCIA, 9, 31), ""},
+            {new DekatrianCalendar(ANO_REFERENCIA, 11, 24), new GregorianCalendar(ANO_REFERENCIA, 10, 1), ""},
+            {new DekatrianCalendar(ANO_REFERENCIA, 12, 25), new GregorianCalendar(ANO_REFERENCIA, 10, 30), ""},
+            {new DekatrianCalendar(ANO_REFERENCIA, 12, 26), new GregorianCalendar(ANO_REFERENCIA, 11, 1), ""},
+            {new DekatrianCalendar(ANO_REFERENCIA, 13, 28), new GregorianCalendar(ANO_REFERENCIA, 11, 31), ""}
         });
     }
 
