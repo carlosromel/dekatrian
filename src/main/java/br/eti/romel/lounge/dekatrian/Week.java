@@ -26,7 +26,7 @@ import lombok.*;
  */
 @AllArgsConstructor
 @Data
-public class Semana {
+public class Week {
     private Integer numeroSemana;
     private Integer domingo;
     private Integer segunda;
@@ -36,7 +36,7 @@ public class Semana {
     private Integer sexta;
     private Integer sabado;
 
-    public Semana(Integer numeroSemana, List<Integer> d) {
+    public Week(Integer numeroSemana, List<Integer> d) {
         this(numeroSemana, d.get(0), d.get(1), d.get(2), d.get(3), d.get(4), d.get(5), d.get(6));
     }
 }

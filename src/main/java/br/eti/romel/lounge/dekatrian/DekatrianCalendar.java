@@ -67,7 +67,7 @@ public final class DekatrianCalendar {
     public DekatrianCalendar(int year, int month, int day) {
         if ((year > 0)
             && (month >= 0 && month <= 14)
-            && (day > 0 && day <= 28)) {
+            && (day >= 0 && day <= 28)) {
             this.year = year;
             this.month = month;
             this.day = day;
@@ -95,19 +95,17 @@ public final class DekatrianCalendar {
      * @return Data gregoriana.
      */
     public Calendar toGregorian() {
-        int daysInYear = (this.month * 28) - 28 + this.day;
         Calendar greg = new GregorianCalendar(this.year, 0, 1);
+        int daysInYear = (this.month == 0 ? 0 : (this.month - 1) * 28) + this.day - 1;
 
-        if (new GregorianCalendar().isLeapYear(this.year)) {
+        if (this.month > 0) {
             ++daysInYear;
+            if (new GregorianCalendar().isLeapYear(this.year)) {
+                ++daysInYear;
+            }
         }
 
-        // Synchronian day || Achronian day
-        if (this.month == 0 && (this.day == 1 || this.day == 2)) {
-            greg.set(Calendar.DAY_OF_MONTH, this.day);
-        } else {
-            greg.add(Calendar.DAY_OF_YEAR, daysInYear);
-        }
+        greg.add(Calendar.DAY_OF_YEAR, daysInYear);
 
         return greg;
     }
@@ -187,11 +185,11 @@ public final class DekatrianCalendar {
         int day = this.day;
 
         month += months;
-        if (month > 14) {
+        if (month > 12) {
             month = 0;
             ++year;
         } else if (month < 0) {
-            month = 14;
+            month = 12;
             --year;
         }
 
@@ -216,5 +214,52 @@ public final class DekatrianCalendar {
     public boolean isValid() {
 
         return this.year > 0 && this.month >= 0 && this.day > 0;
+    }
+
+    /**
+     * Retorna as semanas do mês atual.
+     *
+     * @return Semanas do mês atual;
+     */
+    public List<Week> getDekatrianWeeks() {
+        final boolean isLeap = new GregorianCalendar().isLeapYear(this.getYear());
+        List<Week> week = new ArrayList<>();
+        int w = this.getWeek();
+        int d = 1;
+
+        /**
+         * if (w == 1) { Os dias Anaachronian e Sinchronian são representados em
+         * um mês à * parte. week.add(new Week(0, 1, (isLeap ? 2 : null), null,
+         * null, null, null, null)); }
+         */
+        week.addAll(Arrays.asList(new Week(w++, d++, d++, d++, d++, d++, d++, d++),
+                                  new Week(w++, d++, d++, d++, d++, d++, d++, d++),
+                                  new Week(w++, d++, d++, d++, d++, d++, d++, d++),
+                                  new Week(w++, d++, d++, d++, d++, d++, d++, d++)));
+        return week;
+    }
+
+    /**
+     * Retorna as semanas do mês atual.
+     *
+     * @return
+     */
+    public List<Week> getGregorianWeeks() {
+        List<Week> weeks = new ArrayList<>();
+        Date actual = getTime();
+        Calendar gregorian = new GregorianCalendar(actual.getYear(), actual.getMonth(), 1);
+        int actualMonth = gregorian.get(Calendar.MONTH);
+
+        while (gregorian.get(Calendar.MONTH) == actualMonth) {
+            Integer weekNumber = gregorian.get(Calendar.WEEK_OF_YEAR);
+            List<Integer> days = Arrays.asList(null, null, null, null, null, null, null);
+            while (gregorian.get(Calendar.MONTH) == actualMonth && gregorian.get(Calendar.WEEK_OF_YEAR) == weekNumber) {
+                days.set(gregorian.get(Calendar.DAY_OF_WEEK) - 1, gregorian.get(Calendar.DAY_OF_MONTH));
+                gregorian.add(Calendar.DAY_OF_MONTH, 1);
+            }
+            weeks.add(new Week(weekNumber, days));
+        }
+
+        return weeks;
     }
 }

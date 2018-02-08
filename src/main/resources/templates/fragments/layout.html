@@ -41,8 +41,8 @@
                         document.querySelector('#gregorianHuman').textContent = greg;
                     }
                 };
-
                 xhr.send();
+                console.log(url);
             }
 
             document.querySelectorAll(".dekatrian").forEach(function (e) {
@@ -55,15 +55,30 @@
                 });
             });
 
-            document.querySelectorAll(".gregorian").forEach(function (e) {
-                e.addEventListener('click', function () {
-                    var ref = document.querySelector('#gregorian').getAttribute('ref');
-                    var day = '00' + this.textContent;
-                    var date = ref + '-' + day.substring(day.length - 2);
-                    var url = '/v1/dekatrian/' + date;
-                    convert(url);
+                document.querySelectorAll(".gregorian").forEach(function (e) {
+                    e.addEventListener('click', function () {
+                        var ref = document.querySelector('#gregorian').getAttribute('ref');
+                        var day = '00' + this.textContent;
+                        var date = ref + '-' + day.substring(day.length - 2);
+                        var url = '/v1/dekatrian/' + date;
+                        convert(url);
+                    });
                 });
-            });
 
+                document.querySelector(".anachronian")
+                        .addEventListener('click', function () {
+                            var year = document.querySelector('#dekatrian')
+                                    .getAttribute('ref').substring(0, 4); // Apenas o ano interessa.
+                            var url = '/v1/gregorian/' + year + '-00-01';
+                            convert(url);
+                        });
+
+                document.querySelector(".sinchronian")
+                            .addEventListener('click', function () {
+                                var year = document.querySelector('#dekatrian')
+                                        .getAttribute('ref').substring(0, 4); // Apenas o ano interessa.
+                                var url = '/v1/gregorian/' + year + '-00-02';
+                                convert(url);
+                            });
         </script>
         </body>

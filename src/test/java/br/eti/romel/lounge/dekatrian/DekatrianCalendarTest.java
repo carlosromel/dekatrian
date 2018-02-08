@@ -43,10 +43,14 @@ public class DekatrianCalendarTest {
     public static Collection<Object[]> data() {
 
         return Arrays.asList(new Object[][]{
-            {new DekatrianCalendar(ANO_REFERENCIA, 0, 1), new GregorianCalendar(ANO_REFERENCIA, 0, 1), "Anachronian (dia fora do tempo)."},
             {new DekatrianCalendar(ANO_BISSEXTO, 0, 1), new GregorianCalendar(ANO_BISSEXTO, 0, 1), "Anachronian (dia fora do tempo)."},
             {new DekatrianCalendar(ANO_BISSEXTO, 0, 2), new GregorianCalendar(ANO_BISSEXTO, 0, 2), "Sinchronian (para anos bissextos)."},
-            {new DekatrianCalendar(ANO_REFERENCIA, 0, 2), new GregorianCalendar(ANO_REFERENCIA, 0, 2), "Dia normal (Sinchronian day para anos não bissextos."},
+            {new DekatrianCalendar(ANO_BISSEXTO, 1, 1), new GregorianCalendar(ANO_BISSEXTO, 0, 3), ""},
+            {new DekatrianCalendar(ANO_BISSEXTO, 1, 28), new GregorianCalendar(ANO_BISSEXTO, 0, 30), ""},
+            {new DekatrianCalendar(ANO_REFERENCIA, 0, 1), new GregorianCalendar(ANO_REFERENCIA, 0, 1), "Anachronian (dia fora do tempo)."},
+            {new DekatrianCalendar(ANO_REFERENCIA, 1, 1), new GregorianCalendar(ANO_REFERENCIA, 0, 2), ""},
+            {new DekatrianCalendar(ANO_REFERENCIA, 1, 2), new GregorianCalendar(ANO_REFERENCIA, 0, 3), ""},
+            {new DekatrianCalendar(ANO_REFERENCIA, 1, 28), new GregorianCalendar(ANO_REFERENCIA, 0, 29), ""},
             {new DekatrianCalendar(ANO_REFERENCIA, 2, 2), new GregorianCalendar(ANO_REFERENCIA, 0, 31), ""},
             {new DekatrianCalendar(ANO_REFERENCIA, 2, 3), new GregorianCalendar(ANO_REFERENCIA, 1, 1), ""},
             {new DekatrianCalendar(ANO_REFERENCIA, 3, 2), new GregorianCalendar(ANO_REFERENCIA, 1, 28), ""},
@@ -85,13 +89,5 @@ public class DekatrianCalendarTest {
         assertEquals(this.mensagem,
                      SDF.format(this.esperado.getTime()),
                      SDF.format(this.informado.getTime()));
-    }
-
-    @Test
-    public void convergencia() {
-
-        assertEquals(this.mensagem,
-                     SDF.format(this.esperado.getTime()),
-                     SDF.format(this.informado.toGregorian().getTime()));
     }
 }

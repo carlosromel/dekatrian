@@ -81,8 +81,15 @@ public class Main {
             model.addAttribute("semanaInicialGregorian", gregorian.get(Calendar.WEEK_OF_YEAR));
             model.addAttribute("bean", new Bean(dekatrian));
 
-            model.addAttribute("semanasDekatrianas", getDekatrianWeeks(dekatrian));
-            model.addAttribute("semanasGregorianas", getGregorianWeeks(gregorian));
+            if (md == 0) {
+                model.addAttribute("anachronian", 1);
+
+                if (new GregorianCalendar().isLeapYear(yd)) {
+                    model.addAttribute("sinchronian", 2);
+                }
+            }
+            model.addAttribute("semanasDekatrianas", dekatrian.getDekatrianWeeks());
+            model.addAttribute("semanasGregorianas", proximoDekatrian.getGregorianWeeks());
 
             return "index";
         } else {
@@ -119,17 +126,13 @@ public class Main {
         try {
             String[] parts = dekatrian.split("-");
             if (parts.length == 3) {
-
                 int year = Integer.parseInt(parts[0]);
                 int month = Integer.parseInt(parts[1]);
                 int day = Integer.parseInt(parts[2]);
 
-                if (month == 1
-                    && (day == 1
-                        || (new GregorianCalendar().isLeapYear(year)
-                            && day == 2))) {
-                    --month;
-                }
+//                if (month == 1 && (day == 1 || (isLeap && day == 2))) {
+//                    --month;
+//                }
                 if (!result.setDekatrian(new DekatrianCalendar(year, month, day))) {
                     result.setMensagem(String.format("%s não é uma data válida.", dekatrian));
                 }
@@ -152,34 +155,4 @@ public class Main {
         return String.format(SHORT_REF, date.getYear(), date.getMonth());
     }
 
-    public List<Semana> getDekatrianWeeks(DekatrianCalendar dekatrian) {
-        int w = dekatrian.getWeek();
-        int d = 1;
-
-        return Arrays.asList(new Semana(w++, d++, d++, d++, d++, d++, d++, d++),
-                             new Semana(w++, d++, d++, d++, d++, d++, d++, d++),
-                             new Semana(w++, d++, d++, d++, d++, d++, d++, d++),
-                             new Semana(w++, d++, d++, d++, d++, d++, d++, d++));
-    }
-
-    public List<Semana> getGregorianWeeks(Calendar gregorian) {
-        List<Semana> weeks = new ArrayList<>();
-        int actualMonth = gregorian.get(Calendar.MONTH);
-        gregorian.set(Calendar.DAY_OF_MONTH, 1);
-
-        while (gregorian.get(Calendar.MONTH) == actualMonth) {
-            Integer weekNumber = gregorian.get(Calendar.WEEK_OF_YEAR);
-            List<Integer> days = Arrays.asList(null, null, null, null, null, null, null);
-
-            while (gregorian.get(Calendar.MONTH) == actualMonth
-                   && gregorian.get(Calendar.WEEK_OF_YEAR) == weekNumber) {
-                days.set(gregorian.get(Calendar.DAY_OF_WEEK) - 1, gregorian.get(Calendar.DAY_OF_MONTH));
-                gregorian.add(Calendar.DAY_OF_MONTH, 1);
-            }
-
-            weeks.add(new Semana(weekNumber, days));
-        }
-
-        return weeks;
-    }
 }

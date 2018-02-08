@@ -29,7 +29,7 @@ public class AritimeticaBasicaTest {
     @Test
     public void mesAnterior() {
         DekatrianCalendar atual = new DekatrianCalendar(2018, 0, 1);
-        DekatrianCalendar anterior = new DekatrianCalendar(2017, 14, 1);
+        DekatrianCalendar anterior = new DekatrianCalendar(2017, 12, 1);
 
         assertEquals("Próximo mês inválido.",
                      anterior.toString(),
