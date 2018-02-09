@@ -238,10 +238,10 @@ public final class DekatrianCalendar {
      *
      * @return
      */
-    public List<Week> getGregorianWeeks() {
+    public static List<Week> getGregorianWeeks(Calendar gregorian) {
         List<Week> weeks = new ArrayList<>();
-        Date actual = getTime();
-        Calendar gregorian = new GregorianCalendar(actual.getYear(), actual.getMonth(), 1);
+//        Date actual = this.getTime();
+//        Calendar gregorian = new GregorianCalendar(actual.getYear(), actual.getMonth(), 1);
         int actualMonth = gregorian.get(Calendar.MONTH);
 
         while (gregorian.get(Calendar.MONTH) == actualMonth) {

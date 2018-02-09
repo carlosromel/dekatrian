@@ -90,7 +90,8 @@ public class Main {
                 }
             }
             model.addAttribute("semanasDekatrianas", dekatrian.getDekatrianWeeks());
-            model.addAttribute("semanasGregorianas", proximoDekatrian.getGregorianWeeks());
+
+            model.addAttribute("semanasGregorianas", DekatrianCalendar.getGregorianWeeks(proximoGregorian));
 
             return "index";
         } else {
