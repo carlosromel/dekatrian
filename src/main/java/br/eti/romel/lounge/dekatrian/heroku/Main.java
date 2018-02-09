@@ -53,6 +53,7 @@ public class Main {
             final Calendar anteriorGregorian = new GregorianCalendar(yg, mg, 1);
             final Calendar proximoGregorian = new GregorianCalendar(yg, mg, 1);
 
+            final boolean isLeap = new GregorianCalendar().isLeapYear(yg);
             final int yearDekatrian = dekatrian.getYear();
             final int yearGregorian = gregorian.get(Calendar.YEAR);
             final String monthDekatrian = DekatrianEnum.getMonthName(dekatrian.getMonth() + 1);
@@ -84,9 +85,51 @@ public class Main {
 
             if (md == 0) {
                 model.addAttribute("anachronian", 1);
-
-                if (new GregorianCalendar().isLeapYear(yd)) {
-                    model.addAttribute("sinchronian", 2);
+                System.out.println(isLeap);
+                List<String> weekDays = Arrays.asList("segunda", "terca", "quarta", "quinta", "sexta", "sabado", "domingo");
+                switch (Week.firstDay(dekatrian) - 1) {
+                    case Calendar.SUNDAY:
+                        model.addAttribute("anachronian.segunda", 1);
+                        if (isLeap) {
+                            model.addAttribute("sinchronian.terca", 2);
+                        }
+                        break;
+                    case Calendar.MONDAY:
+                        model.addAttribute("anachronian.terca", 1);
+                        if (isLeap) {
+                            model.addAttribute("sinchronian.quarta", 2);
+                        }
+                        break;
+                    case Calendar.TUESDAY:
+                        model.addAttribute("anachronian.quarta", 1);
+                        if (isLeap) {
+                            model.addAttribute("sinchronian.quinta", 2);
+                        }
+                        break;
+                    case Calendar.WEDNESDAY:
+                        model.addAttribute("anachronian.quinta", 1);
+                        if (isLeap) {
+                            model.addAttribute("sinchronian.sexta", 2);
+                        }
+                        break;
+                    case Calendar.THURSDAY:
+                        model.addAttribute("anachronian.sexta", 1);
+                        if (isLeap) {
+                            model.addAttribute("sinchronian.sabado", 2);
+                        }
+                        break;
+                    case Calendar.FRIDAY:
+                        model.addAttribute("anachronian.sabado", 1);
+                        if (isLeap) {
+                            model.addAttribute("sinchronian.domingo", 2);
+                        }
+                        break;
+                    case Calendar.SATURDAY:
+                        model.addAttribute("anachronian.domingo", 1);
+                        if (isLeap) {
+                            model.addAttribute("sinchronian.segunda", 2);
+                        }
+                        break;
                 }
             }
             model.addAttribute("semanasDekatrianas", dekatrian.getDekatrianWeeks());

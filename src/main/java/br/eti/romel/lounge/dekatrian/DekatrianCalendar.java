@@ -60,14 +60,14 @@ public final class DekatrianCalendar {
     /**
      * Cria uma data Dekatrian pura.
      *
-     * @param year  Ano.
+     * @param year Ano.
      * @param month Mês.
-     * @param day   Dia.
+     * @param day Dia.
      */
     public DekatrianCalendar(int year, int month, int day) {
         if ((year > 0)
-            && (month >= 0 && month <= 14)
-            && (day >= 0 && day <= 28)) {
+                && (month >= 0 && month <= 14)
+                && (day >= 0 && day <= 28)) {
             this.year = year;
             this.month = month;
             this.day = day;
@@ -119,34 +119,34 @@ public final class DekatrianCalendar {
      */
     public DekatrianCalendar gregToDeka(Calendar date) {
         int daysInYear = date.get(Calendar.DAY_OF_YEAR);
-        int year = date.get(Calendar.YEAR);
-        int month;
-        int day = 1;
+        int y = date.get(Calendar.YEAR);
+        int m;
+        int d = 1;
 
-        if (new GregorianCalendar().isLeapYear(year)
-            && date.get(Calendar.MONTH) == 0
-            && (date.get(Calendar.DAY_OF_MONTH) == 1
-                || date.get(Calendar.DAY_OF_MONTH) == 2)) {
-            month = 0;
-            day = date.get(Calendar.DAY_OF_MONTH);
+        if (new GregorianCalendar().isLeapYear(y)
+                && date.get(Calendar.MONTH) == 0
+                && (date.get(Calendar.DAY_OF_MONTH) == 1
+                    || date.get(Calendar.DAY_OF_MONTH) == 2)) {
+            m = 0;
+            d = date.get(Calendar.DAY_OF_MONTH);
         } else if (date.get(Calendar.MONTH) == 0
-                   && date.get(Calendar.DAY_OF_MONTH) == 1) {
-            month = 0;
+                && date.get(Calendar.DAY_OF_MONTH) == 1) {
+            m = 0;
         } else if (date.get(Calendar.MONTH) == 0
-                   && date.get(Calendar.DAY_OF_MONTH) == 2) {
-            month = 1;
+                && date.get(Calendar.DAY_OF_MONTH) == 2) {
+            m = 1;
         } else {
-            month = (int) Math.floor(daysInYear / 28);
-            day = daysInYear - (month * 28);
-            ++month;
+            m = (int) Math.floor(daysInYear / 28);
+            d = daysInYear - (m * 28);
+            ++m;
 
-            if (day == 1) {
-                day = 28;
-                --month;
+            if (d == 1) {
+                d = 28;
+                --m;
             }
         }
 
-        return new DekatrianCalendar(year, month, day);
+        return new DekatrianCalendar(y, m, d);
     }
 
     public final Date getTime() {
@@ -168,11 +168,11 @@ public final class DekatrianCalendar {
         Calendar gregorian = toGregorian();
 
         if (gregorian.get(Calendar.MONTH) == 0
-            && gregorian.get(Calendar.DAY_OF_MONTH) == 1) {
+                && gregorian.get(Calendar.DAY_OF_MONTH) == 1) {
             monthName = "Anachronian";
         } else if (new GregorianCalendar().isLeapYear(this.year)
-                   && gregorian.get(Calendar.MONTH) == 0
-                   && gregorian.get(Calendar.DAY_OF_MONTH) == 2) {
+                && gregorian.get(Calendar.MONTH) == 0
+                && gregorian.get(Calendar.DAY_OF_MONTH) == 2) {
             monthName = "Sincronian";
         }
 
@@ -180,20 +180,20 @@ public final class DekatrianCalendar {
     }
 
     private DekatrianCalendar moveMonth(int months) {
-        int year = this.year;
-        int month = this.month;
-        int day = this.day;
+        int y = this.year;
+        int m = this.month;
+        int d = this.day;
 
-        month += months;
-        if (month > 12) {
-            month = 0;
-            ++year;
-        } else if (month < 0) {
-            month = 12;
-            --year;
+        m += months;
+        if (m > 12) {
+            m = 0;
+            ++y;
+        } else if (m < 0) {
+            m = 12;
+            --y;
         }
 
-        return new DekatrianCalendar(year, month, day);
+        return new DekatrianCalendar(y, m, d);
     }
 
     public DekatrianCalendar nextMonth() {
@@ -236,12 +236,12 @@ public final class DekatrianCalendar {
     /**
      * Retorna as semanas do mês atual.
      *
+     * @param gregorian Data no formato gregoriano.
+     *
      * @return
      */
     public static List<Week> getGregorianWeeks(Calendar gregorian) {
         List<Week> weeks = new ArrayList<>();
-//        Date actual = this.getTime();
-//        Calendar gregorian = new GregorianCalendar(actual.getYear(), actual.getMonth(), 1);
         int actualMonth = gregorian.get(Calendar.MONTH);
 
         while (gregorian.get(Calendar.MONTH) == actualMonth) {

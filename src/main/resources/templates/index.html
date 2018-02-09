@@ -24,13 +24,20 @@
                             </thead>
                             <tbody class="text-center">
                                 <tr th:if="${anachronian} or ${sinchronian}">
-                                    <td role="button" class="anachronian" th:text="${anachronian}" title="Anachronian day">
-                                    <td role="button" class="sinchronian" th:text="${sinchronian}" title="Sinchronian day">
-                                    <td role="button"></td>
-                                    <td role="button"></td>
-                                    <td role="button"></td>
-                                    <td role="button"></td>
-                                    <td role="button"></td>
+                                    <td role="button" class="anachronian_ th:text="${anachronian_segunda}" title="Anachronian_day" th:if="${anachronian_segunda != null}">
+                                    <td role="button" class="sinchronian_ th:text="${sinchronian_segunda}" title="Sinchronian_day" th:if="${sinchronian_segunda != null}">
+                                    <td role="button" class="anachronian_ th:text="${anachronian_terca}" title="Anachronian_day" th:if="${anachronian_terca != null}">
+                                    <td role="button" class="sinchronian_ th:text="${sinchronian_terca}" title="Sinchronian_day" th:if="${sinchronian_terca != null}">
+                                    <td role="button" class="anachronian_ th:text="${anachronian_quarta}" title="Anachronian_day" th:if="${anachronian_quarta != null}">
+                                    <td role="button" class="sinchronian_ th:text="${sinchronian_quarta}" title="Sinchronian_day" th:if="${sinchronian_quarta != null}">
+                                    <td role="button" class="anachronian_ th:text="${anachronian_quinta}" title="Anachronian_day" th:if="${anachronian_quinta != null}">
+                                    <td role="button" class="sinchronian_ th:text="${sinchronian_quinta}" title="Sinchronian_day" th:if="${sinchronian_quinta != null}">
+                                    <td role="button" class="anachronian_ th:text="${anachronian_sexta}" title="Anachronian_day" th:if="${anachronian_sexta != null}">
+                                    <td role="button" class="sinchronian_ th:text="${sinchronian_sexta}" title="Sinchronian_day" th:if="${sinchronian_sexta != null}">
+                                    <td role="button" class="anachronian_ th:text="${anachronian_sabado}" title="Anachronian_day" th:if="${anachronian_sabado != null}">
+                                    <td role="button" class="sinchronian_ th:text="${sinchronian_sabado}" title="Sinchronian_day" th:if="${sinchronian_sabado != null}">
+                                    <td role="button" class="anachronian_ th:text="${anachronian_domingo}" title="Anachronian_day" th:if="${anachronian_domingo != null}">
+                                    <td role="button" class="sinchronian_ th:text="${sinchronian_domingo}" title="Sinchronian_day" th:if="${sinchronian_domingo != null}">
                                 </tr>
                                 <tr th:each="semana : ${semanasDekatrianas}">
                                     <td role="button" class="dekatrian" th:text="${semana.domingo}">
