@@ -68,7 +68,7 @@ public class Week {
      */
     public static List<String> weekDays(Calendar gregorian) {
         Calendar firstDay = new GregorianCalendar(gregorian.get(Calendar.YEAR), 0, 1);
-        int positions = firstDay.get(Calendar.DAY_OF_WEEK) - 1;
+        int positions = firstDay.get(Calendar.DAY_OF_WEEK);
 
         return weekShift(positions);
     }
