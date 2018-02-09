@@ -82,7 +82,7 @@ public class Week {
      */
     public static List<String> weekDays(DekatrianCalendar dekatrian) {
         Calendar firstDay = new GregorianCalendar(dekatrian.getYear(), 0, 1);
-        int positions = firstDay.get(Calendar.DAY_OF_WEEK) - 1;
+        int positions = firstDay.get(Calendar.DAY_OF_WEEK);
 
         return weekShift(positions);
     }
@@ -98,7 +98,7 @@ public class Week {
     public static List<String> shortWeekDays(DekatrianCalendar dekatrian) {
         List<String> days = Arrays.asList("Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb");
         Calendar firstDay = new GregorianCalendar(dekatrian.getYear(), 0, 1);
-        int positions = firstDay.get(Calendar.DAY_OF_WEEK) - 1;
+        int positions = firstDay.get(Calendar.DAY_OF_WEEK);
 
         return weekShift(positions, days);
     }
