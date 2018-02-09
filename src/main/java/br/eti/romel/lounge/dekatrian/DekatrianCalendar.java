@@ -222,16 +222,10 @@ public final class DekatrianCalendar {
      * @return Semanas do mês atual;
      */
     public List<Week> getDekatrianWeeks() {
-        final boolean isLeap = new GregorianCalendar().isLeapYear(this.getYear());
         List<Week> week = new ArrayList<>();
         int w = this.getWeek();
         int d = 1;
 
-        /**
-         * if (w == 1) { Os dias Anaachronian e Sinchronian são representados em
-         * um mês à * parte. week.add(new Week(0, 1, (isLeap ? 2 : null), null,
-         * null, null, null, null)); }
-         */
         week.addAll(Arrays.asList(new Week(w++, d++, d++, d++, d++, d++, d++, d++),
                                   new Week(w++, d++, d++, d++, d++, d++, d++, d++),
                                   new Week(w++, d++, d++, d++, d++, d++, d++, d++),

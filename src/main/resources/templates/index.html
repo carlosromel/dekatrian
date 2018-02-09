@@ -15,23 +15,15 @@
                             <thead>
                                 <tr>
                                     <th class="text-center"><a th:href="@{/cal/{dekatrian}/{gregorian}(dekatrian=${anteriorDekatrian},gregorian=${gregorian})}"> &lt;&lt; </a></th>
-                                    <th class="text-center" colspan="6"><p th:text=${refDekatrian}/></th>
+                                    <th class="text-center" colspan="5"><p th:text=${refDekatrian}/></th>
                                     <th class="text-center"><a th:href="@{/cal/{dekatrian}/{gregorian}(dekatrian=${proximoDekatrian},gregorian=${gregorian})}"> &gt;&gt; </a></th>
                                 </tr>
                                 <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col" class="text-center">S</th>
-                                    <th scope="col" class="text-center">T</th>
-                                    <th scope="col" class="text-center">Q</th>
-                                    <th scope="col" class="text-center">Q</th>
-                                    <th scope="col" class="text-center">S</th>
-                                    <th scope="col" class="text-center">S</th>
-                                    <th scope="col" class="text-center">D</th>
+                                    <th scope="col" class="text-center" th:each="day : ${dekatrianWeekDays}" th:text="${day}">
                                 </tr>
                             </thead>
                             <tbody class="text-center">
                                 <tr th:if="${anachronian} or ${sinchronian}">
-                                    <th scope="row">0</th>
                                     <td role="button" class="anachronian" th:text="${anachronian}" title="Anachronian day">
                                     <td role="button" class="sinchronian" th:text="${sinchronian}" title="Sinchronian day">
                                     <td role="button"></td>
@@ -41,7 +33,6 @@
                                     <td role="button"></td>
                                 </tr>
                                 <tr th:each="semana : ${semanasDekatrianas}">
-                                    <th scope="row" th:text="${semana.numeroSemana}">
                                     <td role="button" class="dekatrian" th:text="${semana.domingo}">
                                     <td role="button" class="dekatrian" th:text="${semana.segunda}">
                                     <td role="button" class="dekatrian" th:text="${semana.terca}">
@@ -60,23 +51,21 @@
                             <thead>
                                 <tr>
                                     <th class="text-center"><a th:href="@{/cal/{dekatrian}/{gregorian}(dekatrian=${dekatrian},gregorian=${anteriorGregorian})}"> &lt;&lt; </a></th>
-                                    <th class="text-center" colspan="6"><p th:text=${refGregorian}/></th>
+                                    <th class="text-center" colspan="5"><p th:text=${refGregorian}/></th>
                                     <th class="text-center"><a th:href="@{/cal/{dekatrian}/{gregorian}(dekatrian=${dekatrian},gregorian=${proximoGregorian})}"> &gt;&gt; </a></th>
                                 </tr>
                                 <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col" class="text-center">D</th>
-                                    <th scope="col" class="text-center">S</th>
-                                    <th scope="col" class="text-center">T</th>
-                                    <th scope="col" class="text-center">Q</th>
-                                    <th scope="col" class="text-center">Q</th>
-                                    <th scope="col" class="text-center">S</th>
-                                    <th scope="col" class="text-center">S</th>
+                                    <th scope="col" class="text-center">Dom</th>
+                                    <th scope="col" class="text-center">Seg</th>
+                                    <th scope="col" class="text-center">Ter</th>
+                                    <th scope="col" class="text-center">Qua</th>
+                                    <th scope="col" class="text-center">Qui</th>
+                                    <th scope="col" class="text-center">Sex</th>
+                                    <th scope="col" class="text-center">Sáb</th>
                                 </tr>
                             </thead>
                             <tbody class="text-center">
                                 <tr th:each="semana : ${semanasGregorianas}">
-                                    <th scope="row" th:text="${semana.numeroSemana}">
                                     <td role="button" class="gregorian" th:text="${semana.domingo}">
                                     <td role="button" class="gregorian" th:text="${semana.segunda}">
                                     <td role="button" class="gregorian" th:text="${semana.terca}">

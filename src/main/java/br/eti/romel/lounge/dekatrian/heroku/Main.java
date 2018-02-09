@@ -77,6 +77,7 @@ public class Main {
             model.addAttribute("anteriorGregorian", ref(anteriorGregorian));
             model.addAttribute("proximoGregorian", ref(proximoGregorian));
 
+            model.addAttribute("dekatrianWeekDays", Week.shortWeekDays(dekatrian));
             model.addAttribute("semanaInicialDekatrian", dekatrian.getWeek());
             model.addAttribute("semanaInicialGregorian", gregorian.get(Calendar.WEEK_OF_YEAR));
             model.addAttribute("bean", new Bean(dekatrian));
