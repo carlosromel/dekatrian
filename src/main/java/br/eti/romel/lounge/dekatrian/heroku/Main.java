@@ -83,14 +83,10 @@ public class Main {
             model.addAttribute("bean", new Bean(dekatrian));
 
             if (md == 0) {
-                model.addAttribute("anachronian", 1);
-
-                if (new GregorianCalendar().isLeapYear(yd)) {
-                    model.addAttribute("sinchronian", 2);
-                }
+                model.addAttribute("semanasAnachonianas", dekatrian.getAnachronianWeek());
             }
-            model.addAttribute("semanasDekatrianas", dekatrian.getDekatrianWeeks());
 
+            model.addAttribute("semanasDekatrianas", dekatrian.getDekatrianWeeks());
             model.addAttribute("semanasGregorianas", DekatrianCalendar.getGregorianWeeks(proximoGregorian));
 
             return "index";

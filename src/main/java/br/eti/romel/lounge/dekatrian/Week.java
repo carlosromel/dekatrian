@@ -50,7 +50,7 @@ public class Week {
 
     /**
      * Retorna os dias da semana, de domingo a sábado (conforme a ordem
-     * prescrita na classe GregorianCalendar.
+     * prescrita na classe GregorianCalendar), do ano atual.
      *
      * @return Lista de dias da semana.
      */
@@ -60,21 +60,8 @@ public class Week {
     }
 
     /**
-     * Retorna os dias da semana, fluída, conforme o primeiro dia do ano.
-     *
-     * @param gregorian Data gregoriana. Somente o ano é necessário.
-     *
-     * @return Lista de dias da semana, variável conforme o primeiro dia do ano.
-     */
-    public static List<String> weekDays(Calendar gregorian) {
-        Calendar firstDay = new GregorianCalendar(gregorian.get(Calendar.YEAR), 0, 1);
-        int positions = firstDay.get(Calendar.DAY_OF_WEEK) - 1;
-
-        return weekShift(positions);
-    }
-
-    /**
-     * Retorna os dias da semana, fluída, conforme o primeiro dia do ano.
+     * Retorna os dias da semana, de domingo a sábado (conforme a ordem
+     * prescrita na classe GregorianCalendar).
      *
      * @param dekatrian Data dekatrian. Somente o ano é necessário.
      *
@@ -89,6 +76,17 @@ public class Week {
 
     /**
      * Retorna os dias da semana, fluidos pela quantidade de dias do ano, apenas
+     * com as iniciais do ano atual.
+     *
+     * @return Lista de dias da semana, variável conforme o primeiro dia do ano.
+     */
+    public static List<String> shortWeekDays() {
+
+        return shortWeekShift(0);
+    }
+
+    /**
+     * Retorna os dias da semana, fluidos pela quantidade de dias do ano, apenas
      * com as iniciais.
      *
      * @param dekatrian Data dekatrian. Somente o ano é necessário.
@@ -96,16 +94,16 @@ public class Week {
      * @return Lista de dias da semana, variável conforme o primeiro dia do ano.
      */
     public static List<String> shortWeekDays(DekatrianCalendar dekatrian) {
-        List<String> days = Arrays.asList("Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb");
-        Calendar firstDay = new GregorianCalendar(dekatrian.getYear(), 0, 1);
-        int positions = firstDay.get(Calendar.DAY_OF_WEEK) - 1;
+        final int year = dekatrian.getYear();
+        final GregorianCalendar ref = new GregorianCalendar(year, 0, 1);
+        final int position = ref.get(Calendar.DAY_OF_WEEK);
 
-        return weekShift(positions, days);
+        return shortWeekShift(position);
     }
 
     /**
-     * Retorna os dias da semana, fluidos pela quantidade de dias do ano, em
-     * nomes longos.
+     * Retorna os dias da semana, fluidos pela quantidade de dias do ano atual,
+     * em nomes longos.
      *
      * @param positions Posições para a movimentação dos dias da semana.
      *
@@ -115,6 +113,47 @@ public class Week {
         List<String> days = Arrays.asList("Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado");
 
         return weekShift(positions, days);
+    }
+
+    /**
+     * Retorna os dias da semana, fluidos pela quantidade de dias do ano atual,
+     * apenas com as iniciais.
+     *
+     * @param positions Posições para a movimentação dos dias da semana.
+     *
+     * @return Lista de dias da semana, variável conforme o primeiro dia do ano.
+     */
+    public static List<String> shortWeekShift(int positions) {
+        List<String> days = Arrays.asList("Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb");
+
+        return weekShift(positions, days);
+    }
+
+    /**
+     * Retorna o primeiro dia da semana para o calendário Dekatrian. O retorno
+     * segue a convenção Calendar.DAY_OF_WEEK, para o ano atual.
+     *
+     * @return Referência ao dia da semana.
+     */
+    public int firstDay() {
+
+        return firstDay(new DekatrianCalendar());
+    }
+
+    /**
+     * Retorna o primeiro dia da semana para o calendário Dekatrian. O retorno
+     * segue a convenção Calendar.DAY_OF_WEEK.
+     *
+     * @param dekatrian
+     *
+     * @return Referência ao dia da semana.
+     */
+    public static int firstDay(DekatrianCalendar dekatrian) {
+        int year = dekatrian.getYear();
+        int day = dekatrian.isLeap() ? 3 : 2;
+        Calendar firstDay = new GregorianCalendar(year, 0, day);
+
+        return firstDay.get(Calendar.DAY_OF_WEEK);
     }
 
     /**

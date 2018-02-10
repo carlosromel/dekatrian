@@ -23,14 +23,14 @@
                                 </tr>
                             </thead>
                             <tbody class="text-center">
-                                <tr th:if="${anachronian} or ${sinchronian}">
-                                    <td role="button" class="anachronian" th:text="${anachronian}" title="Anachronian day">
-                                    <td role="button" class="sinchronian" th:text="${sinchronian}" title="Sinchronian day">
-                                    <td role="button"></td>
-                                    <td role="button"></td>
-                                    <td role="button"></td>
-                                    <td role="button"></td>
-                                    <td role="button"></td>
+                                <tr th:each="semana : ${semanasAnachonianas}">
+                                    <td role="button" class="dekatrian" th:text="${semana.domingo}">
+                                    <td role="button" class="dekatrian" th:text="${semana.segunda}">
+                                    <td role="button" class="dekatrian" th:text="${semana.terca}">
+                                    <td role="button" class="dekatrian" th:text="${semana.quarta}">
+                                    <td role="button" class="dekatrian" th:text="${semana.quinta}">
+                                    <td role="button" class="dekatrian" th:text="${semana.sexta}">
+                                    <td role="button" class="dekatrian" th:text="${semana.sabado}">
                                 </tr>
                                 <tr th:each="semana : ${semanasDekatrianas}">
                                     <td role="button" class="dekatrian" th:text="${semana.domingo}">

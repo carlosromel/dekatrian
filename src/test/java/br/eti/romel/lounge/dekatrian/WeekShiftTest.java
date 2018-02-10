@@ -28,12 +28,12 @@ import org.junit.runners.*;
  * @author Carlos Romel Pereira da Silva <carlos.romel@gmail.com>
  */
 @RunWith(Parameterized.class)
-public class WeekTest {
+public class WeekShiftTest {
 
     private final String informado;
     private final String esperado;
 
-    public WeekTest(String informado, String esperado) {
+    public WeekShiftTest(String informado, String esperado) {
         this.informado = informado;
         this.esperado = esperado;
     }
@@ -42,6 +42,13 @@ public class WeekTest {
     public static Collection<Object[]> data() {
 
         return Arrays.asList(new Object[][]{
+            {Week.shortWeekShift(0).get(0), "Dom"},
+            {Week.shortWeekShift(1).get(0), "Seg"},
+            {Week.shortWeekShift(2).get(0), "Ter"},
+            {Week.shortWeekShift(3).get(0), "Qua"},
+            {Week.shortWeekShift(4).get(0), "Qui"},
+            {Week.shortWeekShift(5).get(0), "Sex"},
+            {Week.shortWeekShift(6).get(0), "Sáb"},
             {Week.weekShift(0).get(0), "Domingo"},
             {Week.weekShift(1).get(0), "Segunda"},
             {Week.weekShift(2).get(0), "Terça"},

@@ -26,7 +26,6 @@ import lombok.*;
  *
  * @author Carlos Romel Pereira da Silva, carlos.romel@gmail.com
  */
-@NoArgsConstructor
 public final class Bean {
 
     private static final SimpleDateFormat SDF_SHORT = new SimpleDateFormat("yyyy-MM-dd");
@@ -46,6 +45,11 @@ public final class Bean {
     @Getter
     @Setter
     private String mensagem;
+
+    public Bean() {
+
+        this.setDekatrian(new DekatrianCalendar());
+    }
 
     public Bean(Calendar gregorian) {
 

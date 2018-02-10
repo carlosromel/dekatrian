@@ -66,7 +66,10 @@ public final class DekatrianCalendar {
      */
     public DekatrianCalendar(int year, int month, int day) {
         if ((year > 0)
-            && (month >= 0 && month <= 14)
+            && ((month == 0
+                 && ((isLeap() && day <= 2)
+                     || day < 2)
+                 || (month >= 0 && month <= 14)))
             && (day >= 0 && day <= 28)) {
             this.year = year;
             this.month = month;
@@ -213,7 +216,15 @@ public final class DekatrianCalendar {
 
     public boolean isValid() {
 
-        return this.year > 0 && this.month >= 0 && this.day > 0;
+        return this.year > 0
+               && ((this.month == 0 && isLeap() && this.day <= 2)
+                   || (this.month >= 0 && this.month < 14))
+               && this.day > 0;
+    }
+
+    public boolean isLeap() {
+
+        return new GregorianCalendar().isLeapYear(this.year);
     }
 
     /**
@@ -236,12 +247,12 @@ public final class DekatrianCalendar {
     /**
      * Retorna as semanas do mês atual.
      *
-     * @return
+     * @param gregorian
+     *
+     * @return Lista com as semanas do mës informado.
      */
     public static List<Week> getGregorianWeeks(Calendar gregorian) {
         List<Week> weeks = new ArrayList<>();
-//        Date actual = this.getTime();
-//        Calendar gregorian = new GregorianCalendar(actual.getYear(), actual.getMonth(), 1);
         int actualMonth = gregorian.get(Calendar.MONTH);
 
         while (gregorian.get(Calendar.MONTH) == actualMonth) {
@@ -255,5 +266,12 @@ public final class DekatrianCalendar {
         }
 
         return weeks;
+    }
+
+    public List<Week> getAnachronianWeek() {
+
+        return Arrays.asList(new Week(0, null, null, null, null, null,
+                                      isLeap() ? 1 : null,
+                                      isLeap() ? 2 : 1));
     }
 }
