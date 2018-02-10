@@ -88,7 +88,7 @@ public class VerificacoesBasicasTest {
         final DekatrianCalendar dekatrian = new DekatrianCalendar(gregorian);
 
         assertEquals(SDF.format(gregorian.getTime()),
-                     SDF.format(dekatrian.toGregorian().getTime()));
+                     SDF.format(dekatrian.getTime()));
     }
 
     @Test
@@ -98,7 +98,7 @@ public class VerificacoesBasicasTest {
         final DekatrianCalendar dekatrian = new DekatrianCalendar(gregorian);
 
         assertEquals(SDF.format(gregorian.getTime()),
-                     SDF.format(dekatrian.toGregorian().getTime()));
+                     SDF.format(dekatrian.getTime()));
     }
 
     @Test
@@ -108,7 +108,7 @@ public class VerificacoesBasicasTest {
         final DekatrianCalendar dekatrian = new DekatrianCalendar(gregorian);
 
         assertEquals(SDF.format(gregorian.getTime()),
-                     SDF.format(dekatrian.toGregorian().getTime()));
+                     SDF.format(dekatrian.getTime()));
     }
 
     @Test
@@ -118,6 +118,6 @@ public class VerificacoesBasicasTest {
         final DekatrianCalendar dekatrian = new DekatrianCalendar(gregorian);
 
         assertEquals(SDF.format(gregorian.getTime()),
-                     SDF.format(dekatrian.toGregorian().getTime()));
+                     SDF.format(dekatrian.getTime()));
     }
 }

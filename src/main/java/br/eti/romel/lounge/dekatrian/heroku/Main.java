@@ -82,10 +82,6 @@ public class Main {
             model.addAttribute("semanaInicialGregorian", gregorian.get(Calendar.WEEK_OF_YEAR));
             model.addAttribute("bean", new Bean(dekatrian));
 
-            if (md == 0) {
-                model.addAttribute("semanasAnachonianas", dekatrian.getAnachronianWeek());
-            }
-
             model.addAttribute("semanasDekatrianas", dekatrian.getDekatrianWeeks());
             model.addAttribute("semanasGregorianas", DekatrianCalendar.getGregorianWeeks(proximoGregorian));
 
@@ -128,9 +124,6 @@ public class Main {
                 int month = Integer.parseInt(parts[1]);
                 int day = Integer.parseInt(parts[2]);
 
-//                if (month == 1 && (day == 1 || (isLeap && day == 2))) {
-//                    --month;
-//                }
                 if (!result.setDekatrian(new DekatrianCalendar(year, month, day))) {
                     result.setMensagem(String.format("%s não é uma data válida.", dekatrian));
                 }

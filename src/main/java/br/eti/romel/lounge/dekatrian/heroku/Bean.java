@@ -58,7 +58,7 @@ public final class Bean {
 
     public Bean(DekatrianCalendar dekatrian) {
 
-        this(dekatrian.toGregorian());
+        this(dekatrian.getGregorian());
     }
 
     public boolean setGregorian(Calendar gregorian) {
@@ -68,7 +68,7 @@ public final class Bean {
 
     public boolean setDekatrian(DekatrianCalendar dekatrian) {
 
-        return setVariables(dekatrian.toGregorian(), dekatrian);
+        return setVariables(dekatrian.getGregorian(), dekatrian);
     }
 
     private boolean setVariables(Calendar gregorian, DekatrianCalendar dekatrian) {

@@ -39,8 +39,6 @@ public class InspecaoVisual {
             String dkt = String.format("%02d.%02d",
                                        dekatrian.getMonth(),
                                        dekatrian.getDay());
-            Integer semanaDekatrian[] = {null, null, null, null, null, null, null};
-            Integer semanaGregorian[] = {null, null, null, null, null, null, null};
 
             System.out.printf("\t(%s, %s)%s", grg, dkt, (++dias % agrupador == 0 ? "\n" : ""));
 
