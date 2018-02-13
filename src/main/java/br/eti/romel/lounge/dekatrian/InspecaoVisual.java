@@ -27,6 +27,71 @@ import java.util.*;
 public class InspecaoVisual {
 
     public static void main(String[] args) {
+        showMonths(Arrays.asList(new DekatrianCalendar(2016, 0, 1),
+                                 new DekatrianCalendar(2016, 1, 1),
+                                 new DekatrianCalendar(2018, 0, 1),
+                                 new DekatrianCalendar(2018, 1, 1),
+                                 new DekatrianCalendar(2018, 2, 1)));
+    }
+
+    private static void showMonths(List<DekatrianCalendar> dekatrians) {
+        String line = "";
+
+        for (DekatrianCalendar dekatrian : dekatrians) {
+            line += header(dekatrian) + " ";
+        }
+
+        System.out.println(line);
+
+        line = "";
+        for (DekatrianCalendar dekatrian : dekatrians) {
+            line += weekDays(dekatrian) + " ";
+        }
+
+        System.out.println(line);
+
+        for (int w = 0; w < 5; ++w) {
+            line = "";
+            for (DekatrianCalendar dekatrian : dekatrians) {
+                line += days(dekatrian, w);
+                line += " ";
+            }
+
+            System.out.println(line);
+        }
+    }
+
+    private static String header(DekatrianCalendar dekatrian) {
+
+        return String.format("[%30s]", dekatrian.toHuman());
+    }
+
+    private static String weekDays(DekatrianCalendar dekatrian) {
+        String line = " #";
+
+        for (String shortWeekDay : Week.shortWeekDays(dekatrian)) {
+            line += String.format(" %s", shortWeekDay);
+        }
+
+        return String.format("[%30s]", line);
+    }
+
+    private static String days(DekatrianCalendar dekatrian, Integer week) {
+        final List<Week> weeks = dekatrian.getDekatrianWeeks();
+        String line = "";
+
+        if (weeks.size() > week) {
+            Week weekDays = weeks.get(week);
+            line += String.format("%02d", weekDays.getNumeroSemana());
+            for (Integer day : weekDays.getDays()) {
+                line += String.format(" %3s", day == null ? "" : day);
+            }
+        }
+
+        return String.format("[%30s]", line);
+    }
+
+    private static void sync() {
         String formato = "MM.dd";
         Integer anoInicial = 2018;
         Integer dias = 0;
