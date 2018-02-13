@@ -50,7 +50,7 @@ public class WeekFirstDayTest {
             {"2013", Week.firstDay(new DekatrianCalendar(2013, 0, 1)), Calendar.WEDNESDAY},
             {"2014", Week.firstDay(new DekatrianCalendar(2014, 0, 1)), Calendar.THURSDAY},
             {"2015", Week.firstDay(new DekatrianCalendar(2015, 0, 1)), Calendar.FRIDAY},
-            {"2010", Week.firstDay(new DekatrianCalendar(2010, 0, 1)), Calendar.SATURDAY}
+            {"2015", Week.firstDay(new DekatrianCalendar(2010, 0, 1)), Calendar.SATURDAY}
         });
     }
 

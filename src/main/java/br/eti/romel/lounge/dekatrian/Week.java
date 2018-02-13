@@ -69,9 +69,9 @@ public class Week {
      */
     public static List<String> weekDays(DekatrianCalendar dekatrian) {
         Calendar firstDay = new GregorianCalendar(dekatrian.getYear(), 0, 1);
-        int positions = firstDay.get(Calendar.DAY_OF_WEEK) - 1;
+        int positions = firstDay.get(Calendar.DAY_OF_WEEK);
 
-        return weekShift(positions);
+        return weekShift(positions - 1);
     }
 
     /**
@@ -95,10 +95,11 @@ public class Week {
      */
     public static List<String> shortWeekDays(DekatrianCalendar dekatrian) {
         final int year = dekatrian.getYear();
-        final GregorianCalendar ref = new GregorianCalendar(year, 0, 1);
+        final int day = dekatrian.isLeap() ? 3 : 2;
+        final GregorianCalendar ref = new GregorianCalendar(year, 0, day);
         final int position = ref.get(Calendar.DAY_OF_WEEK);
 
-        return shortWeekShift(position);
+        return shortWeekShift(position - 1);
     }
 
     /**
@@ -165,26 +166,38 @@ public class Week {
      */
     private static List<String> weekShift(int positions, List<String> days) {
 
-        if (positions > 0) {
-            for (int j = 0; j < positions; ++j) {
-                String position = days.get(0);
-                int i;
-                for (i = 0; i < days.size() - 1; ++i) {
-                    days.set(i, days.get(i + 1));
+        if (positions != 0) {
+            if (positions > 0) {
+                for (int j = 0; j < positions; ++j) {
+                    String position = days.get(0);
+                    int i;
+                    for (i = 0; i < days.size() - 1; ++i) {
+                        days.set(i, days.get(i + 1));
+                    }
+                    days.set(i, position);
                 }
-                days.set(i, position);
-            }
-        } else if (positions < 0) {
-            for (int j = 0; j < Math.abs(positions); ++j) {
-                String position = days.get(days.size() - 1);
-                int i;
-                for (i = days.size() - 1; i > 0; --i) {
-                    days.set(i, days.get(i - 1));
+            } else if (positions < 0) {
+                for (int j = 0; j < Math.abs(positions); ++j) {
+                    String position = days.get(days.size() - 1);
+                    int i;
+                    for (i = days.size() - 1; i > 0; --i) {
+                        days.set(i, days.get(i - 1));
+                    }
+                    days.set(i, position);
                 }
-                days.set(i, position);
             }
         }
 
         return days;
+    }
+
+    public long getMillis(int year, int month, int day) {
+
+        return new GregorianCalendar(year, month, day).getTimeInMillis();
+    }
+
+    public List<Integer> getDays() {
+
+        return Arrays.asList(this.domingo, this.segunda, this.terca, this.quarta, this.quinta, this.sexta, this.sabado);
     }
 }

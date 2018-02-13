@@ -109,12 +109,13 @@ public final class DekatrianCalendar {
      * @return Uma data DekatrianCalendar.
      */
     public static DekatrianCalendar gregToDeka(Calendar gregorian) {
-        int daysInYear = gregorian.get(Calendar.DAY_OF_YEAR);
         int year = gregorian.get(Calendar.YEAR);
+        final boolean leapYear = new GregorianCalendar().isLeapYear(year);
+        int daysInYear = gregorian.get(Calendar.DAY_OF_YEAR) - (leapYear ? 2 : 1);
         int month;
         int day = 1;
 
-        if (new GregorianCalendar().isLeapYear(year)
+        if (leapYear
             && gregorian.get(Calendar.MONTH) == 0
             && (gregorian.get(Calendar.DAY_OF_MONTH) == 1
                 || gregorian.get(Calendar.DAY_OF_MONTH) == 2)) {
@@ -131,7 +132,7 @@ public final class DekatrianCalendar {
             day = daysInYear - (month * 28);
             ++month;
 
-            if (day == 1) {
+            if (day == 0) {
                 day = 28;
                 --month;
             }
@@ -160,10 +161,12 @@ public final class DekatrianCalendar {
     @Override
     public String toString() {
 
-        return String.format("%04d\\%02d\\%02d",
-                             this.year,
-                             this.month,
-                             this.day);
+        return String.format("%04d\\%02d\\%02d", this.year, this.month, this.day);
+    }
+
+    public String getSimpleFormat() {
+
+        return String.format("%d-%d-%d", this.year, this.month, this.day);
     }
 
     /**

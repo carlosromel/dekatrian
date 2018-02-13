@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 @SpringBootApplication
 public class Main {
 
-    private static final SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");
     private static final String SHORT_REF = "%04d%02d";
 
     public static void main(String[] args) throws Exception {
@@ -27,10 +26,10 @@ public class Main {
 
     @RequestMapping("/")
     String index(Model model) {
-        Calendar gregorian = Calendar.getInstance();
-        final DekatrianCalendar dekatrian = new DekatrianCalendar().gregToDeka(gregorian);
+        final Calendar gregorian = Calendar.getInstance();
+        final DekatrianCalendar dekatrian = new DekatrianCalendar();
 
-        return calendar(ref(dekatrian), ref(gregorian), model);
+        return calendar(ref(dekatrian.previousMonth()), ref(gregorian), model);
     }
 
     @PostMapping("/")
@@ -41,36 +40,41 @@ public class Main {
 
     @RequestMapping("/cal/{refDekatrian}/{refGregorian}")
     String calendar(@PathVariable String refDekatrian, @PathVariable String refGregorian, Model model) {
+        final SimpleDateFormat SDF = new SimpleDateFormat("yyyy-M-d");
+        final SimpleDateFormat SDFM = new SimpleDateFormat("MMMM", new Locale("pt", "BR"));
 
         if (refDekatrian.length() == 6) {
             final int yd = Integer.parseInt(refDekatrian.substring(0, 4));
             final int md = Integer.parseInt(refDekatrian.substring(4, 6));
             final int yg = Integer.parseInt(refGregorian.substring(0, 4));
             final int mg = Integer.parseInt(refGregorian.substring(4, 6));
-
             final DekatrianCalendar dekatrian = new DekatrianCalendar(yd, md, 1);
             final Calendar gregorian = new GregorianCalendar(yg, mg, 1);
             final Calendar anteriorGregorian = new GregorianCalendar(yg, mg, 1);
             final Calendar proximoGregorian = new GregorianCalendar(yg, mg, 1);
-
-            final int yearDekatrian = dekatrian.getYear();
-            final int yearGregorian = gregorian.get(Calendar.YEAR);
-            final String monthDekatrian = DekatrianEnum.getMonthName(dekatrian.getMonth() + 1);
-            final String monthGregorian = new SimpleDateFormat("MMMM", new Locale("pt", "BR")).format(gregorian.getTime());
+            final String monthDekatrian = DekatrianEnum.getMonthName(md + 1);
+            final String monthGregorian = SDFM.format(gregorian.getTime());
             final DekatrianCalendar anteriorDekatrian = dekatrian.previousMonth();
             final DekatrianCalendar proximoDekatrian = dekatrian.nextMonth();
 
             anteriorGregorian.add(Calendar.MONTH, -1);
             proximoGregorian.add(Calendar.MONTH, 1);
 
-            model.addAttribute("dekatrian", refDekatrian);
-            model.addAttribute("gregorian", refGregorian);
+            model.addAttribute("todayDekatrian", new DekatrianCalendar().getSimpleFormat());
+            model.addAttribute("yearDekatrian", yd);
+            model.addAttribute("monthDekatrian", md + 1);
+            model.addAttribute("todayGregorian", SDF.format(new GregorianCalendar().getTime()));
+            model.addAttribute("yearGregorian", yg);
+            model.addAttribute("monthGregorian", mg + 1);
+
+            model.addAttribute("refDekatrian", refDekatrian);
+            model.addAttribute("refGregorian", refGregorian);
 
             model.addAttribute("baseDekatrian", String.format("%04d-%02d", yd, md + 1));
             model.addAttribute("baseGregorian", String.format("%04d-%02d", yg, mg + 1));
 
-            model.addAttribute("refDekatrian", String.format("%s %04d", monthDekatrian, yearDekatrian));
-            model.addAttribute("refGregorian", String.format("%s %04d", monthGregorian, yearGregorian));
+            model.addAttribute("titleDekatrian", String.format("%s %04d", monthDekatrian, yd));
+            model.addAttribute("titleGregorian", String.format("%s %04d", monthGregorian, yg));
 
             model.addAttribute("anteriorDekatrian", ref(anteriorDekatrian));
             model.addAttribute("proximoDekatrian", ref(proximoDekatrian));
@@ -78,12 +82,10 @@ public class Main {
             model.addAttribute("proximoGregorian", ref(proximoGregorian));
 
             model.addAttribute("dekatrianWeekDays", Week.shortWeekDays(dekatrian));
-            model.addAttribute("semanaInicialDekatrian", dekatrian.getWeek());
-            model.addAttribute("semanaInicialGregorian", gregorian.get(Calendar.WEEK_OF_YEAR));
-            model.addAttribute("bean", new Bean(dekatrian));
-
             model.addAttribute("semanasDekatrianas", dekatrian.getDekatrianWeeks());
-            model.addAttribute("semanasGregorianas", DekatrianCalendar.getGregorianWeeks(proximoGregorian));
+            model.addAttribute("semanasGregorianas", DekatrianCalendar.getGregorianWeeks(gregorian));
+
+            model.addAttribute("bean", new Bean(dekatrian));
 
             return "index";
         } else {
@@ -100,7 +102,7 @@ public class Main {
 
         try {
             Calendar greg = new GregorianCalendar();
-            greg.setTime(SDF.parse(gregorian));
+            greg.setTime(new SimpleDateFormat("yyyy-MM-dd").parse(gregorian));
             result.setGregorian(greg);
         } catch (ParseException ex) {
             result.setMensagem(String.format("%s não é uma data válida (%s).", gregorian, ex.getLocalizedMessage()));
