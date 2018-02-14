@@ -1,8 +1,9 @@
 # Calendário Dekatrian
 Projeto que fornece um exemplo funcional do calendário Dekatrian.
 
-## Testes automatizados
+## Integrações e verificações
 [![Build Status](https://travis-ci.org/carlosromel/dekatrian.svg?branch=master)](https://travis-ci.org/carlosromel/dekatrian)
+[![codecov](https://codecov.io/gh/carlosromel/dekatrian/branch/master/graph/badge.svg)](https://codecov.io/gh/carlosromel/dekatrian)
 
 ## Obtendo, testando e construindo o projeto
 1. Obtendo...
