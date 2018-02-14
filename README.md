@@ -41,11 +41,12 @@ heroku open
 1. Convertendo uma data gregoriana para dekatriana
 ```java
 DekatrianCalendar dekatrian = new DekatrianCalendar(new GregorianCalendar());
-System.out.printf("Data atual (gregoriano): %s%n", new SimpleDateFormat("yyyy-MM-dd").format(new GregorianCalendar().getTime()));
+SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+System.out.printf("Data atual (gregoriano): %s%n", sdf.format(new GregorianCalendar().getTime()));
 System.out.printf("Data atual.(dekatrian).: %s%n", dekatrian.toString());
 System.out.printf("Mês anterior...........: %s%n", dekatrian.previousMonth().toString());
 System.out.printf("Próximo mês............: %s%n", dekatrian.nextMonth().toString());
-System.out.printf("Convertido.............: %s%n", new SimpleDateFormat("yyyy-MM-dd").format(dekatrian.getTime()));
+System.out.printf("Convertido.............: %s%n", sdf.format(dekatrian.getTime()));
 ```
 
 Espero que seja útil.
