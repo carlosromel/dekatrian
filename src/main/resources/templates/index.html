@@ -14,39 +14,23 @@
                         <table id="dekatrian" class="table table-striped"  th:attr="ref=${baseDekatrian}">
                             <thead>
                                 <tr>
-                                    <th class="text-center"><a th:href="@{/cal/{dekatrian}/{gregorian}(dekatrian=${anteriorDekatrian},gregorian=${gregorian})}"> &lt;&lt; </a></th>
-                                    <th class="text-center" colspan="5"><p th:text=${refDekatrian}/></th>
-                                    <th class="text-center"><a th:href="@{/cal/{dekatrian}/{gregorian}(dekatrian=${proximoDekatrian},gregorian=${gregorian})}"> &gt;&gt; </a></th>
+                                    <th class="text-center"><a th:href="@{/cal/{dekatrian}/{gregorian}(dekatrian=${anteriorDekatrian},gregorian=${refGregorian})}"> &lt;&lt; </a></th>
+                                    <th class="text-center" colspan="5"><p th:text=${titleDekatrian}/></th>
+                                    <th class="text-center"><a th:href="@{/cal/{dekatrian}/{gregorian}(dekatrian=${proximoDekatrian},gregorian=${refGregorian})}"> &gt;&gt; </a></th>
                                 </tr>
                                 <tr>
                                     <th scope="col" class="text-center" th:each="day : ${dekatrianWeekDays}" th:text="${day}">
                                 </tr>
                             </thead>
                             <tbody class="text-center">
-                                <tr th:if="${anachronian} or ${sinchronian}">
-                                    <td role="button" class="anachronian_ th:text="${anachronian_segunda}" title="Anachronian_day" th:if="${anachronian_segunda != null}">
-                                    <td role="button" class="sinchronian_ th:text="${sinchronian_segunda}" title="Sinchronian_day" th:if="${sinchronian_segunda != null}">
-                                    <td role="button" class="anachronian_ th:text="${anachronian_terca}" title="Anachronian_day" th:if="${anachronian_terca != null}">
-                                    <td role="button" class="sinchronian_ th:text="${sinchronian_terca}" title="Sinchronian_day" th:if="${sinchronian_terca != null}">
-                                    <td role="button" class="anachronian_ th:text="${anachronian_quarta}" title="Anachronian_day" th:if="${anachronian_quarta != null}">
-                                    <td role="button" class="sinchronian_ th:text="${sinchronian_quarta}" title="Sinchronian_day" th:if="${sinchronian_quarta != null}">
-                                    <td role="button" class="anachronian_ th:text="${anachronian_quinta}" title="Anachronian_day" th:if="${anachronian_quinta != null}">
-                                    <td role="button" class="sinchronian_ th:text="${sinchronian_quinta}" title="Sinchronian_day" th:if="${sinchronian_quinta != null}">
-                                    <td role="button" class="anachronian_ th:text="${anachronian_sexta}" title="Anachronian_day" th:if="${anachronian_sexta != null}">
-                                    <td role="button" class="sinchronian_ th:text="${sinchronian_sexta}" title="Sinchronian_day" th:if="${sinchronian_sexta != null}">
-                                    <td role="button" class="anachronian_ th:text="${anachronian_sabado}" title="Anachronian_day" th:if="${anachronian_sabado != null}">
-                                    <td role="button" class="sinchronian_ th:text="${sinchronian_sabado}" title="Sinchronian_day" th:if="${sinchronian_sabado != null}">
-                                    <td role="button" class="anachronian_ th:text="${anachronian_domingo}" title="Anachronian_day" th:if="${anachronian_domingo != null}">
-                                    <td role="button" class="sinchronian_ th:text="${sinchronian_domingo}" title="Sinchronian_day" th:if="${sinchronian_domingo != null}">
-                                </tr>
                                 <tr th:each="semana : ${semanasDekatrianas}">
-                                    <td role="button" class="dekatrian" th:text="${semana.domingo}">
-                                    <td role="button" class="dekatrian" th:text="${semana.segunda}">
-                                    <td role="button" class="dekatrian" th:text="${semana.terca}">
-                                    <td role="button" class="dekatrian" th:text="${semana.quarta}">
-                                    <td role="button" class="dekatrian" th:text="${semana.quinta}">
-                                    <td role="button" class="dekatrian" th:text="${semana.sexta}">
-                                    <td role="button" class="dekatrian" th:text="${semana.sabado}">
+                                    <td role="button" class="dekatrian" th:text="${semana.domingo}" th:classappend="${yearDekatrian} + '-' + ${monthDekatrian} + '-' + ${semana.domingo} == ${todayDekatrian} ? 'today' : ''">
+                                    <td role="button" class="dekatrian" th:text="${semana.segunda}" th:classappend="${yearDekatrian} + '-' + ${monthDekatrian} + '-' + ${semana.segunda} == ${todayDekatrian} ? 'today' : ''">
+                                    <td role="button" class="dekatrian" th:text="${semana.terca}"   th:classappend="${yearDekatrian} + '-' + ${monthDekatrian} + '-' + ${semana.terca}   == ${todayDekatrian} ? 'today' : ''">
+                                    <td role="button" class="dekatrian" th:text="${semana.quarta}"  th:classappend="${yearDekatrian} + '-' + ${monthDekatrian} + '-' + ${semana.quarta}  == ${todayDekatrian} ? 'today' : ''">
+                                    <td role="button" class="dekatrian" th:text="${semana.quinta}"  th:classappend="${yearDekatrian} + '-' + ${monthDekatrian} + '-' + ${semana.quinta}  == ${todayDekatrian} ? 'today' : ''">
+                                    <td role="button" class="dekatrian" th:text="${semana.sexta}"   th:classappend="${yearDekatrian} + '-' + ${monthDekatrian} + '-' + ${semana.sexta}   == ${todayDekatrian} ? 'today' : ''">
+                                    <td role="button" class="dekatrian" th:text="${semana.sabado}"  th:classappend="${yearDekatrian} + '-' + ${monthDekatrian} + '-' + ${semana.sabado}  == ${todayDekatrian} ? 'today' : ''">
                                 </tr>
                             </tbody>
                         </table>
@@ -57,9 +41,9 @@
                         <table id="gregorian" class="table table-striped"  th:attr="ref=${baseGregorian}">
                             <thead>
                                 <tr>
-                                    <th class="text-center"><a th:href="@{/cal/{dekatrian}/{gregorian}(dekatrian=${dekatrian},gregorian=${anteriorGregorian})}"> &lt;&lt; </a></th>
-                                    <th class="text-center" colspan="5"><p th:text=${refGregorian}/></th>
-                                    <th class="text-center"><a th:href="@{/cal/{dekatrian}/{gregorian}(dekatrian=${dekatrian},gregorian=${proximoGregorian})}"> &gt;&gt; </a></th>
+                                    <th class="text-center"><a th:href="@{/cal/{dekatrian}/{gregorian}(dekatrian=${refDekatrian},gregorian=${anteriorGregorian})}"> &lt;&lt; </a></th>
+                                    <th class="text-center" colspan="5"><p th:text=${titleGregorian}/></th>
+                                    <th class="text-center"><a th:href="@{/cal/{dekatrian}/{gregorian}(dekatrian=${refDekatrian},gregorian=${proximoGregorian})}"> &gt;&gt; </a></th>
                                 </tr>
                                 <tr>
                                     <th scope="col" class="text-center">Dom</th>
@@ -73,13 +57,13 @@
                             </thead>
                             <tbody class="text-center">
                                 <tr th:each="semana : ${semanasGregorianas}">
-                                    <td role="button" class="gregorian" th:text="${semana.domingo}">
-                                    <td role="button" class="gregorian" th:text="${semana.segunda}">
-                                    <td role="button" class="gregorian" th:text="${semana.terca}">
-                                    <td role="button" class="gregorian" th:text="${semana.quarta}">
-                                    <td role="button" class="gregorian" th:text="${semana.quinta}">
-                                    <td role="button" class="gregorian" th:text="${semana.sexta}">
-                                    <td role="button" class="gregorian" th:text="${semana.sabado}">
+                                    <td role="button" class="gregorian" th:text="${semana.domingo}" th:classappend="${yearGregorian} + '-' + ${monthGregorian} + '-' + ${semana.domingo}  == ${todayGregorian} ? 'today' : ''">
+                                    <td role="button" class="gregorian" th:text="${semana.segunda}" th:classappend="${yearGregorian} + '-' + ${monthGregorian} + '-' + ${semana.segunda}  == ${todayGregorian} ? 'today' : ''">
+                                    <td role="button" class="gregorian" th:text="${semana.terca}"   th:classappend="${yearGregorian} + '-' + ${monthGregorian} + '-' + ${semana.terca}    == ${todayGregorian} ? 'today' : ''">
+                                    <td role="button" class="gregorian" th:text="${semana.quarta}"  th:classappend="${yearGregorian} + '-' + ${monthGregorian} + '-' + ${semana.quarta}   == ${todayGregorian} ? 'today' : ''">
+                                    <td role="button" class="gregorian" th:text="${semana.quinta}"  th:classappend="${yearGregorian} + '-' + ${monthGregorian} + '-' + ${semana.quinta}   == ${todayGregorian} ? 'today' : ''">
+                                    <td role="button" class="gregorian" th:text="${semana.sexta}"   th:classappend="${yearGregorian} + '-' + ${monthGregorian} + '-' + ${semana.sexta}    == ${todayGregorian} ? 'today' : ''">
+                                    <td role="button" class="gregorian" th:text="${semana.sabado}"  th:classappend="${yearGregorian} + '-' + ${monthGregorian} + '-' + ${semana.sabado}   == ${todayGregorian} ? 'today' : ''">
                                 </tr>
                             </tbody>
                         </table>

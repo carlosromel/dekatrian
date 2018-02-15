@@ -26,7 +26,6 @@ import lombok.*;
  *
  * @author Carlos Romel Pereira da Silva, carlos.romel@gmail.com
  */
-@NoArgsConstructor
 public final class Bean {
 
     private static final SimpleDateFormat SDF_SHORT = new SimpleDateFormat("yyyy-MM-dd");
@@ -47,6 +46,11 @@ public final class Bean {
     @Setter
     private String mensagem;
 
+    public Bean() {
+
+        this.setDekatrian(new DekatrianCalendar());
+    }
+
     public Bean(Calendar gregorian) {
 
         this.setGregorian(gregorian);
@@ -54,7 +58,7 @@ public final class Bean {
 
     public Bean(DekatrianCalendar dekatrian) {
 
-        this(dekatrian.toGregorian());
+        this(dekatrian.getGregorian());
     }
 
     public boolean setGregorian(Calendar gregorian) {
@@ -64,7 +68,7 @@ public final class Bean {
 
     public boolean setDekatrian(DekatrianCalendar dekatrian) {
 
-        return setVariables(dekatrian.toGregorian(), dekatrian);
+        return setVariables(dekatrian.getGregorian(), dekatrian);
     }
 
     private boolean setVariables(Calendar gregorian, DekatrianCalendar dekatrian) {
