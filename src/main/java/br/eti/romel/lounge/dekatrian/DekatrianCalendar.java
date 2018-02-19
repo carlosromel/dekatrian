@@ -90,10 +90,7 @@ public class DekatrianCalendar {
         int daysInYear = (this.month == 0 ? 0 : (this.month - 1) * 28) + this.day - 1;
 
         if (this.month > 0) {
-            ++daysInYear;
-            if (this.leap) {
-                ++daysInYear;
-            }
+            daysInYear += (this.leap) ? 2 : 1;
         }
 
         greg.add(Calendar.DAY_OF_YEAR, daysInYear);
