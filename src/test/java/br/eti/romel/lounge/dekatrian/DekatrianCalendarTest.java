@@ -43,11 +43,11 @@ public class DekatrianCalendarTest {
     public static Collection<Object[]> data() {
 
         return Arrays.asList(new Object[][]{
-            {new DekatrianCalendar(ANO_BISSEXTO, 0, 1), new GregorianCalendar(ANO_BISSEXTO, 0, 1), "Anachronian (dia fora do tempo)."},
+            {new DekatrianCalendar(ANO_BISSEXTO, 0, 1), new GregorianCalendar(ANO_BISSEXTO, 0, 1), "Achronian (dia fora do tempo)."},
             {new DekatrianCalendar(ANO_BISSEXTO, 0, 2), new GregorianCalendar(ANO_BISSEXTO, 0, 2), "Sinchronian (para anos bissextos)."},
             {new DekatrianCalendar(ANO_BISSEXTO, 1, 1), new GregorianCalendar(ANO_BISSEXTO, 0, 3), ""},
             {new DekatrianCalendar(ANO_BISSEXTO, 1, 28), new GregorianCalendar(ANO_BISSEXTO, 0, 30), ""},
-            {new DekatrianCalendar(ANO_REFERENCIA, 0, 1), new GregorianCalendar(ANO_REFERENCIA, 0, 1), "Anachronian (dia fora do tempo)."},
+            {new DekatrianCalendar(ANO_REFERENCIA, 0, 1), new GregorianCalendar(ANO_REFERENCIA, 0, 1), "Achronian (dia fora do tempo)."},
             {new DekatrianCalendar(ANO_REFERENCIA, 1, 1), new GregorianCalendar(ANO_REFERENCIA, 0, 2), ""},
             {new DekatrianCalendar(ANO_REFERENCIA, 1, 2), new GregorianCalendar(ANO_REFERENCIA, 0, 3), ""},
             {new DekatrianCalendar(ANO_REFERENCIA, 1, 28), new GregorianCalendar(ANO_REFERENCIA, 0, 29), ""},

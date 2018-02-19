@@ -23,7 +23,7 @@ package br.eti.romel.lounge.dekatrian;
  */
 public enum DekatrianEnum {
 
-    Anachronian(0),
+    Achronian(0),
     Auroran(1),
     Borean(2),
     Coronian(3),
@@ -40,7 +40,7 @@ public enum DekatrianEnum {
 
     private final int id;
     private static final String[] MONTH_NAME = {
-        "Anachronian",
+        "Achronian",
         "Auroran",
         "Borean",
         "Coronian",

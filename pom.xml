@@ -10,15 +10,6 @@
     <artifactId>dekatrian</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.2.RELEASE</version>
-    </parent>
-
-    <name>dekatrian</name>
-    <url>https://github.com/carlosromel/dekatrian</url>
-
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -28,6 +19,15 @@
         <webjars-jquery.version>2.2.4</webjars-jquery.version>
         <thymeleaf.version>3.0.2.RELEASE</thymeleaf.version>
     </properties>
+
+    <name>dekatrian</name>
+    <url>https://github.com/carlosromel/dekatrian</url>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.2.RELEASE</version>
+    </parent>
 
     <licenses>
         <license>

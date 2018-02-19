@@ -82,8 +82,8 @@ public class VerificacoesBasicasTest {
     }
 
     @Test
-    public void anachronianDayTest() {
-        // 2018-01-01 Anachronian day
+    public void achronianDayTest() {
+        // 2018-01-01 Achronian day
         final Calendar gregorian = new GregorianCalendar(2018, 0, 1);
         final DekatrianCalendar dekatrian = new DekatrianCalendar(gregorian);
 

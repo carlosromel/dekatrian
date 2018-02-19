@@ -34,7 +34,7 @@ import lombok.*;
  * Calendário Dekatrian</a>
  */
 @Getter
-public final class DekatrianCalendar {
+public class DekatrianCalendar {
 
     private int year = -1;
     private int month = -1;
@@ -179,7 +179,7 @@ public final class DekatrianCalendar {
 
         if (this.gregorian.get(Calendar.MONTH) == 0
             && this.gregorian.get(Calendar.DAY_OF_MONTH) == 1) {
-            monthName = "Anachronian";
+            monthName = "Achronian";
         } else if (new GregorianCalendar().isLeapYear(this.year)
                    && this.gregorian.get(Calendar.MONTH) == 0
                    && this.gregorian.get(Calendar.DAY_OF_MONTH) == 2) {
