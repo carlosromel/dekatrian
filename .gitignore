@@ -1,2 +1,4 @@
+.env
 /nbproject/
-/target/
+/target
+
