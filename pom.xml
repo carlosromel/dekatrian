@@ -13,8 +13,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <webjars-bootstrap.version>3.3.6</webjars-bootstrap.version>
         <webjars-jquery-ui.version>1.11.4</webjars-jquery-ui.version>
@@ -45,6 +45,13 @@
             <name>Carlos Romel Pereira da Silva</name>
             <email>carlos.romel@gmail.com</email>
             <url>https://github.com/carlosromel</url>
+            <timezone>GMT-3</timezone>
+        </developer> 
+        <developer>
+            <id>guilherme terriaga</id>
+            <name>guilherme terriaga</name>
+            <email>guilherme.terriaga@gmail.com</email>
+            <url>https://github.com/GuilhermeTerriaga/</url>
             <timezone>GMT-3</timezone>
         </developer>
     </developers>
@@ -102,17 +109,15 @@
             <artifactId>bootstrap</artifactId>
             <version>${webjars-bootstrap.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
-        </dependency>
+       
 
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.16.20</version>
+            <version>1.18.2</version>
+            <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>org.telegram</groupId>
             <artifactId>telegrambots</artifactId>
